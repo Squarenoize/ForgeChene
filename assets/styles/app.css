@@ -17,7 +17,9 @@
 
 :root {
     --backgroundColorPrimary: #131315;
+    --backgroundColorSecondary: #2A2A2C;
     --textColorPrimary: #D8C2B5;
+    --textColorSecondary: #FFB783;
 }
 
 body {
@@ -26,8 +28,50 @@ body {
     font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
-.main-container {
+.main-container, .header-container, .footer-container {
     max-width: 1280px;
     margin: 0 auto;
     padding: 20px;
+}
+
+.hero-container {
+    background-image: url('../img/workshop_3.png');
+    background-position: center;
+    height: 500px;
+
+    .hero-content {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        padding: 48px  24px;
+
+        .hero-pill {
+            background-color: var(--backgroundColorSecondary);
+            color: var(--textColorSecondary);
+            font-size: 14px;
+            padding: 6px 16px;
+            border-radius: 15px;
+            align-self: flex-start;
+            margin-bottom: 10px;
+        }
+
+        h1{
+            font-size: 56px;
+            font-weight:400;
+            font-family: 'EB Garamond', serif;
+            margin-bottom: 16px;
+            max-width: 780px;
+
+            .highlight {
+                color: var(--textColorSecondary);
+                font-style: italic;
+            }
+        }
+
+        p {
+            font-size: 17px;
+            line-height: 1.6;
+            max-width: 660px;
+        }
+    }
 }
