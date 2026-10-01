@@ -1,0 +1,52 @@
+classDiagram
+    
+    class User {
+        -string firstname
+        -string lastname
+        -string email
+        -string password
+        -string apiKey
+        -boolean conditionsAccepted
+        -boolean isDeleted
+        -date deletedAt
+    }
+    
+    class Product {
+        -string reference
+        -string name
+        -string shortDescription
+        -text description
+        -string photoUrl
+        -float price
+        -int stockQuantity
+    }
+    
+    class Cart {
+        -date createdAt
+        -string status
+        -date statusChangedAt
+    }
+    
+    class CartItem {
+        -int quantity
+    }
+    
+    class Order {
+        -string status
+        -date orderDate
+        -float totalAmount
+    }
+    
+    class OrderItem {
+        -int quantity
+        -float UnitPriceAtOrder
+    }
+    
+    %% Relations entre classes (avec cardinalités)
+
+    User "1" -- "0..*" Cart
+    User "1" -- "0..*" Order
+    Cart "1" -- "0..*" CartItem
+    Product "1" -- "0..*" CartItem
+    Product "1" -- "0..*" OrderItem
+    Order "1" -- "1..*" OrderItem

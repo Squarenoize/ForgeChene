@@ -1,0 +1,61 @@
+erDiagram
+    USER ||--o{ CART : creates
+    USER ||--o{ ORDER : places
+    CART ||--o{ CART_ITEM : contains
+    PRODUCT ||--o{ CART_ITEM : "added to"
+    PRODUCT ||--o{ ORDER_ITEM : "ordered in"
+    ORDER ||--|{ ORDER_ITEM : contains
+
+    USER {
+        int user_id PK
+        string firstname
+        string lastname
+        string email
+        string password
+        string api_key
+        boolean conditions_accepted
+        boolean is_deleted
+        datetime deleted_at
+    }
+
+    PRODUCT {
+        int product_id PK
+        string reference
+        string name
+        string short_description
+        text description
+        string photo_url
+        float price
+        int stock_quantity
+    }
+
+    CART {
+        int cart_id PK
+        int user_id FK
+        date created_at
+        string status
+        datetime status_changed_at
+    }
+
+    CART_ITEM {
+        int cart_item_id PK
+        int cart_id FK
+        int product_id FK
+        int quantity
+    }
+
+    ORDER {
+        int order_id PK
+        int user_id FK
+        string status
+        date order_date
+        float total_amount
+    }
+
+    ORDER_ITEM {
+        int order_item_id PK
+        int order_id FK
+        int product_id FK
+        int quantity
+        float unit_price_at_order
+    }
