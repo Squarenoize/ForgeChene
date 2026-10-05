@@ -5,7 +5,122 @@
 {% block body %}
 
 
-<div class="example-wrapper">
-    <h1>Welcome to Forge & Chêne!</h1>
-</div>
+<section class="hero-container">
+    <div class="hero-content">
+        <p class="hero-pill">MANUFACTURE FRANÇAISE • QUERCY</p>
+        <h1>L'Âme du <span class="highlight">Chêne Massif</span>, la Rigueur de l'Acier Brut.</h1>
+        <p>Chaque pièce est forgée et rabotée à la main dans notre atelier dans le Lot. Un dialogue sans compromis entre le veinage centenaire et la force minérale du métal.</p>
+    </div>
+</section>
+<section class="products-container">
+    <h2>Créations du moment de l’atelier</h2>
+    <p>Mobilier sculpté pièce par pièce selon le grain du tronc. Chaque modèle arbore un poinçon numéroté.</p>
+    <div class="products-cards">
+        <div class="product-card">
+            <img src="{{ asset('products/bourbonnais.png') }}" alt="Table Bourbonnais">
+            <div class="description">
+                <div class="card-title">
+                    <h3>Table Monolithe Bourbonnais</h3>
+                    <p class="item-price">3 850 €</p>
+                </div>
+                <p>Plateau chêne pleine masse 75mm à bords adoucis. Piétement sculptural en double poutre HEA d'acier.</p>
+                <a href="#" class="btn">DETAILS></a>
+            </div>
+        </div>
+        <div class="product-card">
+            <img src="{{ asset('products/vulcain.png') }}" alt="Table Vulcain">
+            <div class="description">
+                <div class="card-title">
+                    <h3>Table Architecte Vulcain</h3>
+                    <p class="item-price">2 490 €</p>
+                </div>
+                <p>Chêne fumé aux tanins profonds, rainure passe-câbles monobloc fraisée dans la masse et piétement acier plié.</p>
+                <a href="#" class="btn">DETAILS></a>
+            </div>
+        </div>
+        <div class="product-card">
+            <img src="{{ asset('products/tenseur5.png') }}" alt="Bibliothèque Tenseur 5">
+            <div class="description">
+                <div class="card-title">
+                    <h3>Bibliothèque Tenseur 5</h3>
+                    <p class="item-price">2 490 €</p>
+                </div>
+                <p>Structure autoportante en profilés étirés avec haubans de contreventement en acier poli et plateaux chêne rabotés.</p>
+                <a href="#" class="btn">DETAILS></a>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="philosophy-container">
+    <div class="philosophy-content">
+        <h2>PHILOSOPHIE DE L'ATELIER</h2>
+        <h3>Le Manifeste de la Matière: <span class="highlight">Aucun Artifice</span>.</h3>
+        <p>Nous refusons le bois reconstitué, les placages d’un millimètre et les soudures meulées jusqu’à la disparition. À l'Atelier Forge & Chêne, chaque nœud, chaque flamme d'acier et chaque nuance tannique racontent le passage du temps.</p>
+        <div class="tiles-container">
+            <div class="tile tile-comment">
+                <p>« L’acier apporte le squelette et la géométrie froide. Le chêne apporte la chair, les cicatrices des saisons et la chaleur sous la main. »</p>
+                <p class="author">- HENRI DE LESTRANGE, MAÎTRE ÉBÉNISTE & FORGERON COMPAGNON</p>
+            </div>
+            <div class="tile tile-wood">
+                <h4>Grumes Sélectionnées</h4>
+                <p>Nous sélectionnons uniquement des bois massifs de qualité, respectant leur grain et leur histoire.</p>
+            </div>
+            <div class="tile tile-oil">
+                <h4>Huiles Végétales</h4>
+                <p>Nous privilégions les finitions à l'huile naturelle pour sublimer le bois tout en respectant son authenticité.</p>
+            </div>
+        </div>
+    </div>
+    <div class="finition-content">
+        <img src="{{ asset('img/workshop_2.png') }}" alt="Nos Valeurs">
+        <div class="finition-samples">
+            <div class="samples-header">
+                <p>NUANCIER DES ESSENCES & ACIERS</p>
+                <p class="ask-sample">Échantillons offerts sur demande</p>
+            </div>
+            <div class="samples-body">
+                <div class="sample">
+                    <span class="color oak-natural"></span>
+                    <p>Chêne Naturel</p>
+                </div>
+                <div class="sample">
+                    <span class="color oak-burned"></span>
+                    <p>Chêne Brûlé</p>
+                </div>
+                <div class="sample">
+                    <span class="color steel-natural"></span>
+                    <p>Acier Brut</p>
+                </div>
+                <div class="sample">
+                    <span class="color steel-brushed"></span>
+                    <p>Acier Brossé</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="values-container">
+    <div class="values-content">
+        <h2>NOS VALEURS</h2>
+        <h3>Chaque coupe est un hommage au temps.</h3>
+        <p>Nous nous efforçons de créer des pièces qui allient esthétique, fonctionnalité et durabilité, en mettant l'accent sur le savoir-faire artisanal et le respect de l'environnement.</p>
+        <div class="stats-container">
+            <div class="stat">
+                <p class="stat-value">100%</p>
+                <p class="stat-label">FABRICATION NATIONALE</p>
+            </div>
+            <div class="stat">
+                <p class="stat-value">0 COV</p>
+                <p class="stat-label">HUILES BIO-SOURCÉES</p>
+            </div>
+            <div class="stat">
+                <p class="stat-value">> 50 ANS</p>
+                <p class="stat-label">DURÉE DE VIE ESTIMÉE</p>
+            </div>
+        </div>
+    </div>
+    <div class="picture-content">
+        <img src="{{ asset('img/workshop_1.png') }}" alt="Nos Valeurs">
+    </div>
+</section>
 {% endblock %}
