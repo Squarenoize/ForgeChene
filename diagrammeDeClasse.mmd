@@ -23,8 +23,7 @@ classDiagram
     
     class Cart {
         -date createdAt
-        -string status
-        -date statusChangedAt
+        -date isDeletedAt
     }
     
     class CartItem {
@@ -41,6 +40,11 @@ classDiagram
         -int quantity
         -float UnitPriceAtOrder
     }
+
+    class OrderStatusHistory {
+        -string status
+        -date changedAt
+    }
     
     %% Relations entre classes (avec cardinalités)
 
@@ -50,3 +54,4 @@ classDiagram
     Product "1" -- "0..*" CartItem
     Product "1" -- "0..*" OrderItem
     Order "1" -- "1..*" OrderItem
+    Order "1" -- "1..*" OrderStatusHistory

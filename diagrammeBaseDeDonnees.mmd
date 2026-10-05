@@ -5,6 +5,7 @@ erDiagram
     PRODUCT ||--o{ CART_ITEM : "added to"
     PRODUCT ||--o{ ORDER_ITEM : "ordered in"
     ORDER ||--|{ ORDER_ITEM : contains
+    ORDER ||--|{ ORDER_STATUS_HISTORY : "tracks"
 
     USER {
         int user_id PK
@@ -58,4 +59,11 @@ erDiagram
         int product_id FK
         int quantity
         float unit_price_at_order
+    }
+
+    ORDER_STATUS_HISTORY {
+        int order_status_history_id PK
+        int order_id FK
+        string status
+        datetime changed_at
     }
