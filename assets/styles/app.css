@@ -633,6 +633,7 @@ footer {
                 color: var(--textColorPrimary);
                 border: none;
                 cursor: pointer;
+                font-size: 13px;
             }
 
             input {
@@ -642,16 +643,28 @@ footer {
                 border: none;
                 background-color: var(--backgroundColorSecondary);
                 color: var(--textColorPrimary);
+                font-family: 'JetBrains Mono', monospace;
+                font-weight: 600;
+                font-size: 13px;
             }
          }
 
          .add-to-cart {
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             width: 66%;
             background-color: var(--textColorSecondary);
             color: var(--backgroundColorPrimary);
             border: none;
             font-weight: 600;
             cursor: pointer;
+            gap: 10px;
+
+            span {
+                font-size: 18px;
+            }
          }
      }
  }
