@@ -18,9 +18,12 @@
 :root {
     --backgroundColorPrimary: #131315;
     --backgroundColorSecondary: #2A2A2C;
+    --backgroundColorTertiary: #000000;
     --textColorPrimary: #D8C2B5;
     --textColorSecondary: #FFB783;
     --textColorTertiary: #E5E1E4;
+    --textColorDetail: #A08D81;
+    --greenColor: rgb(2, 175, 2);
 }
 
 body {
@@ -99,6 +102,10 @@ footer {
         padding: 24px;
     }
 }
+
+/**
+ * home page
+ */
 
 .hero-container {
     background-image: url('../img/workshop_3.png');
@@ -440,3 +447,211 @@ footer {
         }
     }
 }
+
+/**
+ * Product page
+ */
+
+ .product-container {
+     display: flex;
+     align-items: flex-start;
+     gap: 20px;
+     padding: 20px;
+
+     .product-image-container {
+         width: 50%;
+         flex-shrink: 0;
+
+         img {
+             display: block;
+             width: 100%;
+             height: auto;
+         }
+     }
+
+     .product-details {
+         display: flex;
+         flex-direction: column;
+         flex: 1;
+         gap: 10px;
+         background-color: var(--backgroundColorTertiary);
+         padding: 20px;
+
+         .reference {
+             font-family: 'JetBrains Mono', monospace;
+             font-size: 11px;
+             font-weight: 400;
+             color: var(--textColorDetail);
+         }
+
+         .product-name {
+             font-family: 'EB Garamond', serif;
+             font-size: 38px;
+             font-weight: 500;
+             color: var(--textColorTertiary);
+         }
+
+         .short-description {
+             font-size: 13px;
+             font-weight: 400;
+         }
+     }
+
+     .row {
+        background-color: var(--backgroundColorSecondary);
+        padding: 10px;
+     }
+
+     .price-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+
+        .price {
+            font-family: 'EB Garamond', serif;
+            color: var(--textColorSecondary);
+            font-size: 38px;
+            font-weight: 500;
+        }
+
+        .tax-info {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--textColorDetail);
+            font-size: 11px;
+            font-weight: 400;
+        }
+     }
+
+     .monthly-payment {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px;
+        font-weight: 400;
+        margin-bottom: 8px;
+        
+        span {
+            font-size: 13px;        
+        }
+
+        .monthly-amount {
+            color: var(--textColorTertiary);
+            font-weight: 600;
+        }   
+     }
+
+     .delivery-info {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        font-weight: 400;
+        color: var(--greenColor);
+
+        span {
+            font-size: 11px;        
+        }
+     }
+
+     .description-title {
+        color: var(--textColorSecondary);
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 5px;
+     }
+
+     .description-content {
+        font-size: 13px;
+        font-weight: 300;
+        margin-bottom: 10px;
+        line-height: 1.5;
+     }
+
+     .stock-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+
+        .stocks { 
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            .stock-status {
+                font-size: 13px;
+                font-weight: 600;
+                color: var(--textColorTertiary);
+            }
+            .delivery {
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 11px;
+                font-weight: 600;
+                color: var(--textColorDetail);
+            }
+        
+            .stock-indicator {
+                width: 15px;
+                height: 15px;
+                border-radius: 50%;
+
+                &.green {
+                    background-color: var(--greenColor);
+                }
+            }
+        }
+
+        .stock-quantity {
+            background-color: rgb(59, 59, 59);
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: normal;
+        }
+     }
+
+     .actions {
+        margin-top: 20px;
+        display: flex;
+        gap: 20px;
+        height: 50px;
+
+         .quantity-selector {
+            display: flex;
+            width: 33%;
+            overflow: hidden;
+
+            .decrease-quantity, .increase-quantity {
+                width: 25px;
+                flex-shrink: 0;
+                background-color: var(--backgroundColorSecondary);
+                color: var(--textColorPrimary);
+                border: none;
+                cursor: pointer;
+            }
+
+            input {
+                flex: 1;
+                min-width: 0;
+                text-align: center;
+                border: none;
+                background-color: var(--backgroundColorSecondary);
+                color: var(--textColorPrimary);
+            }
+         }
+
+         .add-to-cart {
+            width: 66%;
+            background-color: var(--textColorSecondary);
+            color: var(--backgroundColorPrimary);
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+         }
+     }
+ }

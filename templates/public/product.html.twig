@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produit{% endblock %}
+
+{% block body %}
+
+<section class="product-container">
+    <div class="product-image-container"> 
+        <img src="{{ asset('products/monolithe.png') }}" alt="Table monolithe">
+    </div>
+    <div class="product-details">
+        <p class="reference">REF : FC-TAB-240-0AK</p>
+        <h1 class="product-name">Table Monolithe</h1>
+        <h2 class="short-description">Chêne Massif & Piétement Trapèze Acier Brut</h2>
+        <div class="row">
+            <div class="price-container">
+                <p class="price">1890,00 €</p>
+                <p class="tax-info">TVA incluse - FRANCE</p>
+            </div>
+            <p class="monthly-payment">
+                <span class="material-symbols-outlined">payments</span> 
+                ou 4 mensualités de <span class="monthly-amount">472,50 €</span> sans frais
+            </p>
+            <p class="delivery-info">
+                <span class="material-symbols-outlined">local_shipping</span>
+                Livraison à domicile incluse
+            </p>
+        </div>
+        <div class="row">
+            <p class="description-title"><i class="icon-description"></i> Description</p>
+            <p class="description-content">La Table Monolithe est fabriquée à partir de matériaux de haute qualité, offrant à la fois robustesse et élégance. Son design minimaliste s'intègre parfaitement dans tout type d'intérieur.</p>
+        </div>
+        <div class="row stock-content">
+            <div class="stocks">
+                <div class="stock-indicator green"></div>
+                <div class="stock-text">
+                    <p class="stock-status">En stock à l'atelier</p>
+                    <p class="delivery">Expédition sous 7 à 10 jours ouvrés</p>
+                </div>
+            </div>
+            <div class="stock-quantity">
+                <p>3 <br>RESTANTS</p>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="quantity-selector">
+                <button class="decrease-quantity">-</button>
+                <input type="text" class="quantity" value="1" min="1">
+                <button class="increase-quantity">+</button>
+            </div>
+            <button class="add-to-cart">Ajouter au panier</button>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
