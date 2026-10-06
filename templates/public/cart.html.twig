@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Panier{% endblock %}
+
+{% block body %}
+    <div class="cart-container">
+        <h1>Mon panier</h1>
+        <div class="cart-grid">
+            <aside class="cart-summary">
+                <div class="summary-header">
+                    <h2>RÉCAPITULATIF</h2>
+                    <p>2 pièces</p>
+                </div>
+                <div class="total-calculation">
+                    <div class="total-amount">
+                        <p class="label">TOTAL TTC</p>
+                        <p class="amount">2 614,50 €</p>
+                    </div>
+                    <p class="tax-amount">TVA incluse (20%) : 435,75 €</p>
+                </div>
+                <button class="checkout-button"><span class="material-symbols-outlined">lock</span>VALIDER LA COMMANDE</button>
+                <div class="summary-footer">
+                    <p>CB</p>
+                    <p class="separator">•</p>
+                    <p>VISA</p>
+                    <p class="separator">•</p>
+                    <p>MASTERCARD</p>
+                    <p class="separator">•</p>
+                    <p>VIREMENT</p>
+                </div>
+            </aside>
+            <section class="cart-items">
+                <div class="headers">
+                    <p class="product">PIECE D'ATELIER</p>
+                    <p class="unit-price">PRIX UNITAIRE</p>
+                    <p class="quantity">QUANTITÉ</p>
+                    <p class="total">TOTAL TTC</p>
+                </div>
+                <div class="items-container">
+                    <article class="cart-item">
+                        <img src="{{ asset('products/vulcain.png') }}" alt="Product Image">
+                        <div class="product-details">
+                            <p class="product">Nom du produit</p>
+                            <p class="reference">Référence du produit</p>
+                        </div>
+                        <p class="unit-price">XX.XX €</p>
+                        <div class="quantity-selector">
+                            <button class="decrease-quantity">-</button>
+                            <input type="text" class="quantity" value="1" min="1">
+                            <button class="increase-quantity">+</button>
+                        </div>
+                        <div class="total">
+                            <p>XX.XX €</p>
+                            <a href="#" class="remove-item"><span class="material-symbols-outlined">delete</span>Retirer</a>
+                        </div>
+                    </article>
+                    <article class="cart-item">
+                        <img src="{{ asset('products/rivet75.png') }}" alt="Product Image">
+                        <div class="product-details">
+                            <p class="product">Nom du produit</p>
+                            <p class="reference">Référence du produit</p>
+                        </div>
+                        <p class="unit-price">XX.XX €</p>
+                        <div class="quantity-selector">
+                            <button class="decrease-quantity">-</button>
+                            <input type="text" class="quantity" value="1" min="1">
+                            <button class="increase-quantity">+</button>
+                        </div>
+                        <div class="total">
+                            <p>XX.XX €</p>
+                            <a href="#" class="remove-item"><span class="material-symbols-outlined">delete</span>Retirer</a>
+                        </div>
+                    </article>
+                    <div class="action-row">
+                    <button class="clear-cart"><span class="material-symbols-outlined">remove_shopping_cart</span>Vider le panier</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+{% endblock %}

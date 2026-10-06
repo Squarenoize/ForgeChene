@@ -19,6 +19,7 @@
     --backgroundColorPrimary: #131315;
     --backgroundColorSecondary: #2A2A2C;
     --backgroundColorTertiary: #000000;
+    --backgroundColorCharcoal: #1B1B1D;
     --textColorPrimary: #D8C2B5;
     --textColorSecondary: #FFB783;
     --textColorTertiary: #E5E1E4;
@@ -474,7 +475,7 @@ footer {
          flex-direction: column;
          flex: 1;
          gap: 10px;
-         background-color: var(--backgroundColorTertiary);
+         background-color: var(--backgroundColorCharcoal);
          padding: 20px;
 
          .reference {
@@ -498,7 +499,7 @@ footer {
      }
 
      .row {
-        background-color: var(--backgroundColorSecondary);
+        background-color: var(--backgroundColorCharcoal);
         padding: 10px;
      }
 
@@ -668,3 +669,282 @@ footer {
          }
      }
  }
+
+/**
+ * Cart page
+ */
+
+.cart-container {
+    padding: 20px;
+
+    h1 {
+        font-family: 'EB Garamond', serif;
+        color: var(--textColorTertiary);
+        font-weight: 400;
+        font-size: 38px;
+        margin-bottom: 30px;
+    }
+
+    .cart-grid { /* Cart grid layout 12 columns */
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 24px;
+        align-items: start;
+
+        /*column 9 to 12*/
+        .cart-summary {
+            grid-column: 9 / span 4;
+            grid-row: 1;
+            align-self: start;
+            background-color: var(--backgroundColorCharcoal);
+            border-radius: 8px;
+            padding: 20px;
+
+            .summary-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 30px;
+
+                h2 {
+                    font-family: 'EB Garamond', serif;
+                    color: var(--textColorTertiary);
+                    font-weight: 400;
+                    font-size: 16px;
+                }
+
+                p {
+                    background-color: var(--backgroundColorSecondary);
+                    padding: 0 10px;
+                    border-radius: 4px;
+                    font-family: 'JetBrains Mono', monospace;
+                    color: var(--textColorSecondary);
+                    font-weight: 400;
+                    font-size: 11px;
+                }
+            }
+
+            .total-calculation {
+                margin: 16px;
+
+                .total-amount {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    font-family: 'EB Garamond', serif;
+
+                    .label {
+                        color: var(--textColorTertiary);
+                        font-weight: 600;
+                        font-size: 16px;
+                    }
+                    .amount {
+                        color: var(--textColorSecondary);
+                        font-weight: 600;
+                        font-size: 22px;
+                    }
+                }
+
+                .tax-amount {
+                    font-family: 'JetBrains Mono', monospace;
+                    color: var(--textColorDetail);
+                    font-size: 11px;
+                    text-align: right;
+                }
+            }
+
+            button {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                gap: 30px;
+                justify-content: center;
+                padding: 10px;
+                background-color: var(--textColorSecondary);
+                border-radius: 4px;
+                color: #452000;
+                font-size: 16px;
+                border: none;
+                font-weight: 600;
+                cursor: pointer;
+                margin-top: 30px;
+
+                span {
+                    font-size: 20px;
+                    font-weight: 600;
+                }
+            }
+
+            .summary-footer {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 11px;
+                color: var(--textColorDetail);
+                margin-top: 20px;
+                padding: 0 16px;
+
+                .separator {
+                    font-size: 20px;
+                }
+            }
+        }
+
+        .cart-items {
+            grid-column: 1 / span 8;
+            grid-row: 1;
+
+            .headers {
+                display: grid;
+                grid-template-columns: repeat(12, 1fr);
+                gap: 10px;
+                background-color: var(--backgroundColorCharcoal);
+                border-radius: 8px;
+                padding: 5px;
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 11px;
+
+                .product {
+                    grid-column: 1 / span 6;
+                    border-bottom: 1px solid var(--textColorPrimary);
+                }
+                .unit-price {
+                    grid-column: 7 / span 2;
+                    border-bottom: 1px solid var(--textColorPrimary);
+                }
+                .quantity {
+                    grid-column: 9 / span 2;
+                    text-align: center;
+                    border-bottom: 1px solid var(--textColorPrimary);
+                }
+                .total {
+                    grid-column: 11 / span 2;
+                    text-align: right;
+                    border-bottom: 1px solid var(--textColorPrimary);
+                }
+            }
+
+            .items-container {
+                min-height: 50vh;
+                display: flex;
+                flex-direction: column;
+                margin-top: 10px;
+                gap: 10px;
+
+                .cart-item {
+                    display: grid;
+                    grid-template-columns: repeat(12, 1fr);
+                    align-items: center;
+                    gap: 10px;
+                    background-color: var(--backgroundColorCharcoal);
+                    padding: 10px;
+                    min-height: 100px;
+
+                    img {
+                        grid-column: 1 / span 2;
+                        max-width: 100%;
+                        height: auto;
+                    }
+
+                    .product-details {
+                        grid-column: 3 / span 4;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-start;
+
+                        .product {
+                            color: var(--textColorTertiary);
+                            font-family: 'EB Garamond', serif;
+                            font-size: 16px;
+                        }
+                        .reference {
+                            color: var(--textColorSecondary);
+                            font-family: 'JetBrains Mono', monospace;
+                            font-size: 11px;
+                        }
+                    }
+                    .unit-price {
+                        color: var(--textColorTertiary);
+                        grid-column: 7 / span 2;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
+                    .quantity-selector {
+                        grid-column: 9 / span 2;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        background-color: var(--backgroundColorSecondary);
+                        margin: 0 15px;
+                        padding: 10px 5px;
+                        border-radius: 5px;
+
+                        .decrease-quantity, .increase-quantity {
+                            width: 25px;
+                            flex-shrink: 0;
+                            background-color: var(--backgroundColorSecondary);
+                            color: var(--textColorPrimary);
+                            border: none;
+                            cursor: pointer;
+                            font-size: 13px;
+                        }
+
+                        input {
+                            flex: 1;
+                            min-width: 0;
+                            text-align: center;
+                            border: none;
+                            background-color: var(--backgroundColorSecondary);
+                            color: var(--textColorPrimary);
+                            font-family: 'JetBrains Mono', monospace;
+                            font-weight: 600;
+                            font-size: 13px;
+                        }
+                    }
+                    .total {
+                        color: var(--textColorSecondary);
+                        grid-column: 11 / span 2;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+
+                        a.remove-item {
+                            font-size: 11px;
+                            margin-top: 5px;
+                            color: var(--textColorDetail);
+                            text-decoration: none;
+                            display: flex;
+                            align-items: center;
+                            gap: 5px;
+
+                            span {
+                                font-size: 13px;
+                            }
+                        }
+                    }
+                }
+
+                .action-row {
+                    display: flex;
+                    justify-content: flex-end;
+                    
+                    button.clear-cart {
+                        background-color: transparent;
+                        color: var(--textColorDetail);
+                        border: none;
+                        cursor: pointer;
+                        font-size: 13px;
+                        padding: 10px 15px;
+                        border-radius: 5px;
+                        display: flex;
+                        align-items: center;
+                        gap: 5px;
+                    }
+                }
+            }
+        }
+    }
+}
