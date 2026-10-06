@@ -5,14 +5,24 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Repository\ProductRepository;
 
 final class HomeController extends AbstractController
 {
+    public function __construct(
+        private ProductRepository $productRepository
+        )
+    {
+    }
+
     #[Route('/home', name: 'app_home')]
     public function index(): Response
     {
+        // Get all products from the repository
+        $products = $this->productRepository->findAll();
+
         return $this->render('public/home.html.twig', [
-            'controller_name' => 'HomeController',
+            'products' => $products,
         ]);
     }
 
