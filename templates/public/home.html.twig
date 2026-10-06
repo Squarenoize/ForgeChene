@@ -16,39 +16,19 @@
     <h2>Créations du moment de l’atelier</h2>
     <p>Mobilier sculpté pièce par pièce selon le grain du tronc. Chaque modèle arbore un poinçon numéroté.</p>
     <div class="products-cards">
-        <div class="product-card">
-            <img src="{{ asset('products/bourbonnais.png') }}" alt="Table Bourbonnais">
+        {% for product in products %}
+        <article class="product-card">
+            <img src="{{ asset(product.photoPath) }}" alt="{{ product.name }}">
             <div class="description">
                 <div class="card-title">
-                    <h3>Table Monolithe Bourbonnais</h3>
-                    <p class="item-price">3 850 €</p>
+                    <h3>{{ product.name }}</h3>
+                    <p class="item-price">{{ product.price|number_format(0, '', ' ') }} €</p>
                 </div>
-                <p>Plateau chêne pleine masse 75mm à bords adoucis. Piétement sculptural en double poutre HEA d'acier.</p>
-                <a href="{{ path('app_product') }}" class="btn">DETAILS></a>
+                <p>{{product.shortDescription}}</p>
+                <a href="{{ path('app_product', {id: product.id}) }}" class="btn">DETAILS></a>
             </div>
-        </div>
-        <div class="product-card">
-            <img src="{{ asset('products/vulcain.png') }}" alt="Table Vulcain">
-            <div class="description">
-                <div class="card-title">
-                    <h3>Table Architecte Vulcain</h3>
-                    <p class="item-price">2 490 €</p>
-                </div>
-                <p>Chêne fumé aux tanins profonds, rainure passe-câbles monobloc fraisée dans la masse et piétement acier plié.</p>
-                <a href="{{ path('app_product') }}" class="btn">DETAILS></a>
-            </div>
-        </div>
-        <div class="product-card">
-            <img src="{{ asset('products/tenseur5.png') }}" alt="Bibliothèque Tenseur 5">
-            <div class="description">
-                <div class="card-title">
-                    <h3>Bibliothèque Tenseur 5</h3>
-                    <p class="item-price">2 490 €</p>
-                </div>
-                <p>Structure autoportante en profilés étirés avec haubans de contreventement en acier poli et plateaux chêne rabotés.</p>
-                <a href="{{ path('app_product') }}" class="btn">DETAILS></a>
-            </div>
-        </div>
+        </article>
+        {% endfor %}
     </div>
 </section>
 <section class="philosophy-container">

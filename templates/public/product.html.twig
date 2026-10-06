@@ -1,25 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Produit{% endblock %}
+{% block title %}{{ product.name }}{% endblock %}
 
 {% block body %}
 
 <section class="product-container">
     <div class="product-image-container"> 
-        <img src="{{ asset('products/monolithe.png') }}" alt="Table monolithe">
+        <img src="{{ asset(product.photoPath) }}" alt="{{ product.name }}">
     </div>
     <div class="product-details">
-        <p class="reference">REF : FC-TAB-240-0AK</p>
-        <h1 class="product-name">Table Monolithe</h1>
-        <h2 class="short-description">Chêne Massif & Piétement Trapèze Acier Brut</h2>
+        <p class="reference">REF : {{ product.reference }}</p>
+        <h1 class="product-name">{{ product.name }}</h1>
+        <h2 class="short-description">{{ product.shortDescription }}</h2>
         <div class="row">
             <div class="price-container">
-                <p class="price">1890,00 €</p>
+                <p class="price">{{ product.price }} €</p>
                 <p class="tax-info">TVA incluse - FRANCE</p>
             </div>
             <p class="monthly-payment">
                 <span class="material-symbols-outlined">payments</span> 
-                ou 4 mensualités de <span class="monthly-amount">472,50 €</span> sans frais
+                ou 4 mensualités de <span class="monthly-amount">{{ (product.price / 4)|number_format(2, ',', ' ') }} €</span> sans frais
             </p>
             <p class="delivery-info">
                 <span class="material-symbols-outlined">local_shipping</span>
@@ -28,7 +28,7 @@
         </div>
         <div class="row">
             <p class="description-title"><i class="icon-description"></i> Description</p>
-            <p class="description-content">La Table Monolithe est fabriquée à partir de matériaux de haute qualité, offrant à la fois robustesse et élégance. Son design minimaliste s'intègre parfaitement dans tout type d'intérieur.</p>
+            <p class="description-content">{{ product.description }}</p>
         </div>
         <div class="row stock-content">
             <div class="stocks">
@@ -39,7 +39,7 @@
                 </div>
             </div>
             <div class="stock-quantity">
-                <p>3 <br>RESTANTS</p>
+                <p>{{ product.stockQuantity }} <br>RESTANTS</p>
             </div>
         </div>
         <div class="actions">

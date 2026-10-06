@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Entity\Product;
 use App\Repository\ProductRepository;
 
 final class HomeController extends AbstractController
@@ -26,11 +27,11 @@ final class HomeController extends AbstractController
         ]);
     }
 
-    #[Route('/product', name: 'app_product')]
-    public function product(): Response
+    #[Route('/product/{id}', name: 'app_product')]
+    public function product(Product $product): Response
     {
         return $this->render('public/product.html.twig', [
-            'controller_name' => 'HomeController',
+            'product' => $product,
         ]);
     }
 
