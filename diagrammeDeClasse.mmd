@@ -22,8 +22,8 @@ classDiagram
     }
     
     class Cart {
-        -date createdAt
-        -date isDeletedAt
+        -datetime createdAt
+        -datetime isDeletedAt
     }
     
     class CartItem {
@@ -43,7 +43,7 @@ classDiagram
 
     class OrderStatusHistory {
         -string status
-        -date changedAt
+        -datetime changedAt
     }
     
     %% Relations entre classes (avec cardinalités)

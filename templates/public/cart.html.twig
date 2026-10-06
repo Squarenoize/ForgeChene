@@ -3,20 +3,28 @@
 {% block title %}Mon Panier{% endblock %}
 
 {% block body %}
+    {% set cartItems = cart ? cart.cartItems : [] %}
+    {% set total = 0 %}
+    {% for item in cartItems %}
+        {% set total = total + (item.product.price * item.quantity) %}
+    {% endfor %}
     <div class="cart-container">
         <h1>Mon panier</h1>
+        {% if cartItems|length == 0 %}
+            <p>Votre panier est vide.</p>
+        {% else %}
         <div class="cart-grid">
             <aside class="cart-summary">
                 <div class="summary-header">
                     <h2>RÉCAPITULATIF</h2>
-                    <p>2 pièces</p>
+                    <p>{{ cartItems|length }} pièce{{ cartItems|length > 1 ? 's' : '' }}</p>
                 </div>
                 <div class="total-calculation">
                     <div class="total-amount">
                         <p class="label">TOTAL TTC</p>
-                        <p class="amount">2 614,50 €</p>
+                        <p class="amount">{{ total|number_format(2, ',', ' ') }} €</p>
                     </div>
-                    <p class="tax-amount">TVA incluse (20%) : 435,75 €</p>
+                    <p class="tax-amount">TVA incluse (20%) : {{ (total * 0.2)|number_format(2, ',', ' ') }} €</p>
                 </div>
                 <button class="checkout-button"><span class="material-symbols-outlined">lock</span>VALIDER LA COMMANDE</button>
                 <div class="summary-footer">
@@ -37,45 +45,31 @@
                     <p class="total">TOTAL TTC</p>
                 </div>
                 <div class="items-container">
+                    {% for item in cartItems %}
                     <article class="cart-item">
-                        <img src="{{ asset('products/vulcain.png') }}" alt="Product Image">
+                        <img src="{{ asset(item.product.photoPath) }}" alt="{{ item.product.name }}">
                         <div class="product-details">
-                            <p class="product">Nom du produit</p>
-                            <p class="reference">Référence du produit</p>
+                            <p class="product">{{ item.product.name }}</p>
+                            <p class="reference">{{ item.product.reference }}</p>
                         </div>
-                        <p class="unit-price">XX.XX €</p>
+                        <p class="unit-price">{{ item.product.price|number_format(2, ',', ' ') }} €</p>
                         <div class="quantity-selector">
                             <button class="decrease-quantity">-</button>
-                            <input type="text" class="quantity" value="1" min="1">
+                            <input type="text" class="quantity" value="{{ item.quantity }}" min="1">
                             <button class="increase-quantity">+</button>
                         </div>
                         <div class="total">
-                            <p>XX.XX €</p>
+                            <p>{{ (item.product.price * item.quantity)|number_format(2, ',', ' ') }} €</p>
                             <a href="#" class="remove-item"><span class="material-symbols-outlined">delete</span>Retirer</a>
                         </div>
                     </article>
-                    <article class="cart-item">
-                        <img src="{{ asset('products/rivet75.png') }}" alt="Product Image">
-                        <div class="product-details">
-                            <p class="product">Nom du produit</p>
-                            <p class="reference">Référence du produit</p>
-                        </div>
-                        <p class="unit-price">XX.XX €</p>
-                        <div class="quantity-selector">
-                            <button class="decrease-quantity">-</button>
-                            <input type="text" class="quantity" value="1" min="1">
-                            <button class="increase-quantity">+</button>
-                        </div>
-                        <div class="total">
-                            <p>XX.XX €</p>
-                            <a href="#" class="remove-item"><span class="material-symbols-outlined">delete</span>Retirer</a>
-                        </div>
-                    </article>
+                    {% endfor %}
                     <div class="action-row">
                     <button class="clear-cart"><span class="material-symbols-outlined">remove_shopping_cart</span>Vider le panier</button>
                     </div>
                 </div>
             </section>
         </div>
+        {% endif %}
     </div>
 {% endblock %}

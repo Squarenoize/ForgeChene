@@ -33,9 +33,8 @@ erDiagram
     CART {
         int cart_id PK
         int user_id FK
-        date created_at
-        string status
-        datetime status_changed_at
+        datetime created_at
+        datetime is_deleted_at
     }
 
     CART_ITEM {
