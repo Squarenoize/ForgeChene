@@ -28,7 +28,7 @@
                 <ul>
                     <li><a href="{{path ('app_home')}}">Nos créations</a></li>
                     <li><a href="#">Mon compte</a></li>
-                    <li><a href="{{path ('app_cart')}}"><span class=" cart material-symbols-outlined">shopping_cart<span class="cart-count">0</span></span>
+                    <li><a href="{{path ('app_cart')}}"><span class=" cart material-symbols-outlined">shopping_cart<span class="cart-count">{{ cart_item_count() }}</span></span>
                         </a>
                     </li>
                 </ul>

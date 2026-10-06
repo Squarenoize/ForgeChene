@@ -13,6 +13,7 @@ export default class extends Controller {
         const value = this.currentValue - 1;
 
         this.inputTarget.value = Math.max(min, value);
+        this.autoSubmit();
     }
 
     increase() {
@@ -20,6 +21,14 @@ export default class extends Controller {
         const value = this.currentValue + 1;
 
         this.inputTarget.value = Math.min(max, value);
+        this.autoSubmit();
+    }
+
+    // Only the cart page opts in via data-quantity-autosubmit-value="true"; the product page does not.
+    autoSubmit() {
+        if (this.element.dataset.quantityAutosubmitValue === 'true') {
+            this.element.requestSubmit();
+        }
     }
 
     get currentValue() {

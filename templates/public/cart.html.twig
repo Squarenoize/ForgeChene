@@ -53,19 +53,26 @@
                             <p class="reference">{{ item.product.reference }}</p>
                         </div>
                         <p class="unit-price">{{ item.product.price|number_format(2, ',', ' ') }} €</p>
-                        <div class="quantity-selector">
-                            <button class="decrease-quantity">-</button>
-                            <input type="text" class="quantity" value="{{ item.quantity }}" min="1">
-                            <button class="increase-quantity">+</button>
-                        </div>
+                        <form method="post" action="{{ path('app_cart_update', {id: item.id}) }}" class="quantity-selector" data-controller="quantity" data-quantity-autosubmit-value="true">
+                            <input type="hidden" data-controller="csrf-protection" value="{{ csrf_token('submit') }}">
+                            <button type="button" class="decrease-quantity" data-action="quantity#decrease">-</button>
+                            <input type="text" class="quantity" name="quantity" value="{{ item.quantity }}" min="1" max="{{ item.product.stockQuantity }}" data-quantity-target="input">
+                            <button type="button" class="increase-quantity" data-action="quantity#increase">+</button>
+                        </form>
                         <div class="total">
                             <p>{{ (item.product.price * item.quantity)|number_format(2, ',', ' ') }} €</p>
-                            <a href="#" class="remove-item"><span class="material-symbols-outlined">delete</span>Retirer</a>
+                            <form method="post" action="{{ path('app_cart_remove', {id: item.id}) }}">
+                                <input type="hidden" data-controller="csrf-protection" value="{{ csrf_token('submit') }}">
+                                <button type="submit" class="remove-item"><span class="material-symbols-outlined">delete</span>Retirer</button>
+                            </form>
                         </div>
                     </article>
                     {% endfor %}
                     <div class="action-row">
-                    <button class="clear-cart"><span class="material-symbols-outlined">remove_shopping_cart</span>Vider le panier</button>
+                    <form method="post" action="{{ path('app_cart_clear') }}">
+                        <input type="hidden" data-controller="csrf-protection" value="{{ csrf_token('submit') }}">
+                        <button type="submit" class="clear-cart"><span class="material-symbols-outlined">remove_shopping_cart</span>Vider le panier</button>
+                    </form>
                     </div>
                 </div>
             </section>

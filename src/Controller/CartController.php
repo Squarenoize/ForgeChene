@@ -58,6 +58,50 @@ final class CartController extends AbstractController
         return $this->redirectToRoute('app_cart');
     }
 
+    #[Route('/cart/update/{id}', name: 'app_cart_update', methods: ['POST'])]
+    public function update(CartItem $cartItem, Request $request): RedirectResponse
+    {
+        $this->assertOwnsCartItem($cartItem, $request);
+
+        $quantity = (int) $request->request->get('quantity', 1);
+
+        if ($quantity < 1) {
+            $this->entityManager->remove($cartItem);
+        } else {
+            $cartItem->setQuantity($quantity);
+        }
+
+        $this->entityManager->flush();
+
+        return $this->redirectToRoute('app_cart');
+    }
+
+    #[Route('/cart/remove/{id}', name: 'app_cart_remove', methods: ['POST'])]
+    public function remove(CartItem $cartItem, Request $request): RedirectResponse
+    {
+        $this->assertOwnsCartItem($cartItem, $request);
+
+        $this->entityManager->remove($cartItem);
+        $this->entityManager->flush();
+
+        return $this->redirectToRoute('app_cart');
+    }
+
+    #[Route('/cart/clear', name: 'app_cart_clear', methods: ['POST'])]
+    public function clear(Request $request): RedirectResponse
+    {
+        $cart = $this->getCart($request, false);
+
+        if ($cart) {
+            foreach ($cart->getCartItems() as $item) {
+                $this->entityManager->remove($item);
+            }
+            $this->entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_cart');
+    }
+
     /**
      * Fetches the cart stored in session, optionally creating a new one.
      */
@@ -77,5 +121,15 @@ final class CartController extends AbstractController
         }
 
         return $cart;
+    }
+
+    /**
+     * Prevents acting on a cart item that doesn't belong to the current session's cart.
+     */
+    private function assertOwnsCartItem(CartItem $cartItem, Request $request): void
+    {
+        if ($cartItem->getCart()?->getId() !== $request->getSession()->get('cart_id')) {
+            throw $this->createAccessDeniedException();
+        }
     }
 }

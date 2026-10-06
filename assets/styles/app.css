@@ -911,11 +911,15 @@ footer {
                         justify-content: center;
                         align-items: center;
 
-                        a.remove-item {
+                        .remove-item {
                             font-size: 11px;
                             margin-top: 5px;
                             color: var(--textColorDetail);
                             text-decoration: none;
+                            background: none;
+                            border: none;
+                            font-family: inherit;
+                            cursor: pointer;
                             display: flex;
                             align-items: center;
                             gap: 5px;
@@ -930,8 +934,8 @@ footer {
                 .action-row {
                     display: flex;
                     justify-content: flex-end;
-                    
-                    button.clear-cart {
+
+                    .clear-cart {
                         background-color: transparent;
                         color: var(--textColorDetail);
                         border: none;
