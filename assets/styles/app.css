@@ -23,6 +23,7 @@
     --textColorPrimary: #D8C2B5;
     --textColorSecondary: #FFB783;
     --textColorTertiary: #E5E1E4;
+    --textColorDarkBrown: #452000;
     --textColorDetail: #A08D81;
     --greenColor: rgb(2, 175, 2);
     --orangeColor: rgb(255, 165, 0);
@@ -953,6 +954,149 @@ footer {
                         gap: 5px;
                     }
                 }
+            }
+        }
+    }
+}
+/**
+ * User registration and login form styles
+ */
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 576px;
+    min-height: 100vh;
+    margin: 0 auto;
+    padding-top: 40px;
+
+    .logo {
+        height: 95px;
+        margin-bottom: 20px;
+    }
+
+    .divider {
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(to right, var(--backgroundColorPrimary) 0%, var(--textColorSecondary) 50%, var(--backgroundColorPrimary) 100%);
+        margin-bottom: 5px;
+    }
+
+    .routes {
+        display: flex;
+        width: 100%;
+        gap: 10px;
+        margin-bottom: 5px;
+
+        a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            text-decoration: none;
+            text-align: center;
+            color: var(--textColorPrimary);
+            border-radius: 5px;
+            width: 50%;
+            padding: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            
+            &.selected {
+                background-color: var(--backgroundColorCharcoal);
+                color: var(--textColorSecondary);
+            }
+        }
+    }
+    
+    .registration-form-container,
+    .login-form-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 15px;
+        background-color: var(--backgroundColorCharcoal);
+        padding: 30px;
+        border-radius: 5px;
+
+        h1 {
+            font-size: 12px;
+            text-transform: uppercase;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--textColorSecondary);
+        }
+
+        h2 {
+            font-size: 38px;
+            font-family: 'EB Garamond', serif;
+            color: var(--textColorTertiary);
+            font-weight: 500;
+            margin: 0;
+        }
+
+        h3 {
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+
+            .form-input {
+                padding: 8px;
+                font-size: 14px;
+                color: var(--textColorPrimary);
+                background-color: var(--backgroundColorPrimary);
+                border-radius: 5px;
+                border: 1px solid var(--backgroundColorCharcoal);
+            }
+        }
+        .condition-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .form-label {
+            font-size: 11px;
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 20px 0px;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--textColorDarkBrown);
+            background-color: var(--textColorSecondary);
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: var(--orangeColor);
+        }
+
+        .api-message {
+            background-color: var(--backgroundColorPrimary);
+            padding: 15px;
+            border-radius: 5px;
+            h4 {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                font-family: 'JetBrains Mono', monospace;
+                text-transform: uppercase;
+                color: var(--textColorSecondary);
+                font-size: 14px;
+                margin: 0 0 5px 0;
+            }
+            p {
+                font-size: 13px;
+                margin-left: 35px;
             }
         }
     }

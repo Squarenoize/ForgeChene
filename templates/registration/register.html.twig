@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <div class="form-container">
+        <img class="logo" src="{{ asset('img/logo_forge-chene.png') }}" alt="Logo Forge & Chêne">
+        <div class="divider"></div>
+        <div class="routes">
+            <a class="" href="{{ path('app_login') }}"><span class="material-symbols-outlined">key</span>Connexion</a>
+            <a class="selected" href="{{ path('app_register') }}"><span class="material-symbols-outlined">construction</span>Créer un compte</a>
+        </div>
+    
+        <div class="registration-form-container"> 
+            <h1>Inscription</h1>
+            <h2>Créer un compte</h2>
+            <h3>Veuillez remplir le formulaire ci-dessous pour créer votre compte.</h3>
+            {{ form_errors(registrationForm) }}
+
+            {{ form_start(registrationForm) }}
+                {{ form_row(registrationForm.email, {
+                    row_attr: { class: 'form-group' },
+                    attr: { class: 'form-input' },
+                    label: 'Adresse email',
+                    label_attr: { class: 'form-label' }
+                }) }}
+                {{ form_row(registrationForm.plainPassword, {
+                    row_attr: { class: 'form-group' },
+                    attr: { class: 'form-input' },
+                    label: 'Mot de passe',
+                    label_attr: { class: 'form-label' }
+                }) }}
+                {{ form_row(registrationForm.agreeTerms, {
+                    row_attr: { class: 'condition-group' },
+                    label: 'J\'accepte les termes et conditions d\'utilisation',
+                    label_attr: { class: 'form-label' }
+                }) }}
+
+                <button type="submit" class="btn">S'inscrire</button>
+            {{ form_end(registrationForm) }}
+            <div class="api-message">
+            <h4><span class="material-symbols-outlined">dataset</span> API produits de Forge & Chêne</h4>
+            <p>Votre compte donne accès direct aux produits  (B2B) si vous faites une demande  de clé d'API catalogue.</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
