@@ -26,7 +26,10 @@
                     </div>
                     <p class="tax-amount">TVA incluse (20%) : {{ (total * 0.2)|number_format(2, ',', ' ') }} €</p>
                 </div>
-                <button class="checkout-button"><span class="material-symbols-outlined">lock</span>VALIDER LA COMMANDE</button>
+                <form method="post" action="{{ path('app_cart_validate') }}">
+                    <input type="hidden" name="_token" data-controller="csrf-protection" value="{{ csrf_token('submit') }}">
+                    <button class="checkout-button"><span class="material-symbols-outlined">lock</span>VALIDER LA COMMANDE</button>
+                </form>
                 <div class="summary-footer">
                     <p>CB</p>
                     <p class="separator">•</p>

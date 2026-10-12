@@ -102,6 +102,32 @@ final class CartController extends AbstractController
         return $this->redirectToRoute('app_cart');
     }
 
+    #[Route('/cart/validate', name: 'app_cart_validate', methods: ['POST'])]
+    public function validate(Request $request): RedirectResponse
+    {
+        $cart = $this->getCart($request, false);
+
+        if ($cart) {
+            // MVP+2 Contact form sending with product ordered details
+            // Edit products stock quantities
+            foreach ($cart->getCartItems() as $item) {
+                $product = $item->getProduct();
+                $product->setStockQuantity($product->getStockQuantity() - $item->getQuantity());
+                $this->entityManager->persist($product);
+            }
+
+            // Delete the database cart after validation (set is_deleted_at)
+            $cart->setIsDeletedAt(new \DateTimeImmutable());
+
+            // Delete the cart from the session
+            $request->getSession()->remove('cart_id');
+
+            $this->entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_cart');
+    }
+
     /**
      * Fetches the cart stored in session, optionally creating a new one.
      */

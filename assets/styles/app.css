@@ -25,6 +25,7 @@
     --textColorTertiary: #E5E1E4;
     --textColorDetail: #A08D81;
     --greenColor: rgb(2, 175, 2);
+    --orangeColor: rgb(255, 165, 0);
 }
 
 body {
@@ -600,6 +601,10 @@ footer {
 
                 &.green {
                     background-color: var(--greenColor);
+                }
+
+                &.orange {
+                    background-color: var(--orangeColor);
                 }
             }
         }

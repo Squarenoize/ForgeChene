@@ -32,16 +32,24 @@
         </div>
         <div class="row stock-content">
             <div class="stocks">
+                {% if product.stockQuantity > 0 %}
                 <div class="stock-indicator green"></div>
                 <div class="stock-text">
                     <p class="stock-status">En stock à l'atelier</p>
                     <p class="delivery">Expédition sous 7 à 10 jours ouvrés</p>
                 </div>
+                {% else %}
+                <div class="stock-indicator orange"></div>
+                <div class="stock-text">
+                    <p class="stock-status">Rupture de stock</p>
+                </div>
+                {% endif %}
             </div>
             <div class="stock-quantity">
                 <p>{{ product.stockQuantity }} <br>RESTANT{{ product.stockQuantity > 1 ? 'S' : '' }} </p>
             </div>
         </div>
+        {% if product.stockQuantity > 0 %}
         <form class="actions" method="post" action="{{ path('app_cart_add', {id: product.id}) }}">
             <input type="hidden" data-controller="csrf-protection" value="{{ csrf_token('submit') }}">
             <div class="quantity-selector" data-controller="quantity">
@@ -51,6 +59,7 @@
             </div>
             <button type="submit" class="add-to-cart"><span class="material-symbols-outlined">shopping_cart</span> AJOUTER AU PANIER</button>
         </form>
+        {% endif %}
     </div>
 </section>
 
