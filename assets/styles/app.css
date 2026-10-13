@@ -1100,4 +1100,29 @@ footer {
             }
         }
     }
+
+    .back-to-products-container {
+        display: flex;
+        width: 100%;
+        justify-content: flex-start;
+
+        .back-to-products {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            text-decoration: none;
+            color: var(--textColorPrimary);
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            gap: 5px;
+
+            span {
+                font-size: 18px;
+            }
+
+            &:hover {
+                color: var(--orangeColor);
+            }
+        }
+    }
 }
