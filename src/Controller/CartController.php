@@ -22,7 +22,7 @@ final class CartController extends AbstractController
     }
 
     #[Route('/cart', name: 'app_cart')]
-    public function index(Request $request): Response
+    public function cartView(Request $request): Response
     {
         return $this->render('public/cart.html.twig', [
             'cart' => $this->getCart($request, false),
@@ -129,7 +129,7 @@ final class CartController extends AbstractController
     }
 
     /**
-     * Fetches the cart stored in session, optionally creating a new one.
+     * Fetches the cart stored in session if anonymous user, optionally creating a new one.
      */
     private function getCart(Request $request, bool $createIfMissing): ?Cart
     {

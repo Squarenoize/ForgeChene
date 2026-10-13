@@ -86,15 +86,15 @@ body {
             font-weight: 600;
         }
     }
-    .login-register {
-        background-color: transparent;
+    .login-register, .logout {
         font-family: 'JetBrains Mono', monospace;
         color: var(--textColorPrimary);
         text-decoration: none;
+        min-width: 250px;
         cursor: pointer;
     }
 
-    .login-register:hover {
+    .login-register:hover, .logout:hover {
         color: var(--textColorSecondary);
         transition: color 0.3s ease;
     }
@@ -1040,8 +1040,11 @@ footer {
             margin-bottom: 15px;
         }
         .form-errors {
-            list-style: none;
             margin-bottom: 15px;
+
+            ul {
+                list-style: none;
+            }
 
             li {
                 color: var(--errorColor);
@@ -1053,6 +1056,10 @@ footer {
             display: flex;
             flex-direction: column;
             margin-bottom: 15px;
+
+            .form-label {
+                margin-bottom: 5px;
+            }
 
             .form-input {
                 padding: 8px;

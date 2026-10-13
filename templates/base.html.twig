@@ -33,7 +33,11 @@
                     </li>
                 </ul>
             </nav>
+            {% if not app.user %}
             <a class="login-register" href="{{ path('app_login') }}">CONNEXION / INSCRIPTION</a>
+            {% else %}
+            <a class="logout" href="{{ path('app_logout') }}">DÉCONNEXION</a>
+            {% endif %}
         </header>
         <div class="main-container">
             {% block body %}{% endblock %}
