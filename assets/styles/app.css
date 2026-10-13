@@ -85,15 +85,15 @@ body {
             font-weight: 600;
         }
     }
-    .btn {
+    .login-register {
         background-color: transparent;
         font-family: 'JetBrains Mono', monospace;
         color: var(--textColorPrimary);
-        border: none;
+        text-decoration: none;
         cursor: pointer;
     }
 
-    .btn:hover {
+    .login-register:hover {
         color: var(--textColorSecondary);
         transition: color 0.3s ease;
     }
