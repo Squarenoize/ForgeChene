@@ -27,6 +27,7 @@
     --textColorDetail: #A08D81;
     --greenColor: rgb(2, 175, 2);
     --orangeColor: rgb(255, 165, 0);
+    --errorColor: rgb(255, 90, 90);
 }
 
 body {
@@ -1038,6 +1039,16 @@ footer {
             font-size: 13px;
             margin-bottom: 15px;
         }
+        .form-errors {
+            list-style: none;
+            margin-bottom: 15px;
+
+            li {
+                color: var(--errorColor);
+                font-size: 13px;
+                font-family: 'JetBrains Mono', monospace;
+            }
+        }
         .form-group {
             display: flex;
             flex-direction: column;
@@ -1051,12 +1062,48 @@ footer {
                 border-radius: 5px;
                 border: 1px solid var(--backgroundColorCharcoal);
             }
+
+            ul {
+                list-style: none;
+                margin-bottom: 5px;
+
+                li {
+                    color: var(--errorColor);
+                    font-size: 12px;
+                    font-family: 'JetBrains Mono', monospace;
+                }
+            }
+
+            &:has(ul) .form-input {
+                border-color: var(--errorColor);
+            }
         }
         .condition-group {
             display: flex;
+            flex-wrap: wrap;
             align-items: center;
             gap: 10px;
             margin-bottom: 15px;
+
+            input {
+                order: 2;
+            }
+
+            .form-label {
+                order: 3;
+            }
+
+            ul {
+                order: 1;
+                flex-basis: 100%;
+                list-style: none;
+
+                li {
+                    color: var(--errorColor);
+                    font-size: 12px;
+                    font-family: 'JetBrains Mono', monospace;
+                }
+            }
         }
         .form-label {
             font-size: 11px;

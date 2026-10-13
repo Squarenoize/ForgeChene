@@ -15,14 +15,13 @@
             <h1>Inscription</h1>
             <h2>Créer un compte</h2>
             <h3>Veuillez remplir le formulaire ci-dessous pour créer votre compte.</h3>
-            {{ form_errors(registrationForm) }}
 
-            {{ form_start(registrationForm) }}
+            {{ form_start(registrationForm, { attr: { novalidate: 'novalidate' } }) }}
                 {{ form_row(registrationForm.email, {
                     row_attr: { class: 'form-group' },
                     attr: { class: 'form-input' },
                     label: 'Adresse email',
-                    label_attr: { class: 'form-label' }
+                    label_attr: { class: 'form-label' },
                 }) }}
                 {{ form_row(registrationForm.plainPassword, {
                     row_attr: { class: 'form-group' },
@@ -38,6 +37,7 @@
 
                 <button type="submit" class="btn">S'inscrire</button>
             {{ form_end(registrationForm) }}
+            
             <div class="api-message">
             <h4><span class="material-symbols-outlined">dataset</span> API produits de Forge & Chêne</h4>
             <p>Votre compte donne accès direct aux produits  (B2B) si vous faites une demande  de clé d'API catalogue.</p>
