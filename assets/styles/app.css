@@ -499,6 +499,30 @@ footer {
              font-size: 13px;
              font-weight: 400;
          }
+
+         .order-warning {
+            font-family: 'JetBrains Mono', monospace;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 400;
+         }
+
+         .not-logged-in {
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            background-color: var(--textColorSecondary);
+            color: var(--backgroundColorPrimary);
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            gap: 10px;
+            text-decoration: none;
+            text-align: center;
+            padding: 10px 0;
+        }
      }
 
      .row {
@@ -674,6 +698,22 @@ footer {
                 font-size: 18px;
             }
          }
+         .not-logged-in {
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            background-color: var(--textColorSecondary);
+            color: var(--backgroundColorPrimary);
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            gap: 10px;
+            text-decoration: none;
+            text-align: center;
+            padding: 10px 0;
+        }
      }
  }
 

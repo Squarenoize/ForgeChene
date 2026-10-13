@@ -49,16 +49,21 @@
                 <p>{{ product.stockQuantity }} <br>RESTANT{{ product.stockQuantity > 1 ? 'S' : '' }} </p>
             </div>
         </div>
-        {% if product.stockQuantity > 0 %}
-        <form class="actions" method="post" action="{{ path('app_cart_add', {id: product.id}) }}">
-            <input type="hidden" data-controller="csrf-protection" value="{{ csrf_token('submit') }}">
-            <div class="quantity-selector" data-controller="quantity">
-                <button type="button" class="decrease-quantity" data-action="quantity#decrease">-</button>
-                <input type="text" class="quantity" name="quantity" value="1" min="1" max="{{ product.stockQuantity }}" data-quantity-target="input">
-                <button type="button" class="increase-quantity" data-action="quantity#increase">+</button>
-            </div>
-            <button type="submit" class="add-to-cart"><span class="material-symbols-outlined">shopping_cart</span> AJOUTER AU PANIER</button>
-        </form>
+        {% if app.user %}
+            {% if product.stockQuantity > 0 %}
+            <form class="actions" method="post" action="{{ path('app_cart_add', {id: product.id}) }}">
+                <input type="hidden" data-controller="csrf-protection" value="{{ csrf_token('submit') }}">
+                <div class="quantity-selector" data-controller="quantity">
+                    <button type="button" class="decrease-quantity" data-action="quantity#decrease">-</button>
+                    <input type="text" class="quantity" name="quantity" value="1" min="1" max="{{ product.stockQuantity }}" data-quantity-target="input">
+                    <button type="button" class="increase-quantity" data-action="quantity#increase">+</button>
+                </div> 
+                <button type="submit" class="add-to-cart"><span class="material-symbols-outlined">shopping_cart</span> AJOUTER AU PANIER</button>
+            </form>
+            {% endif %}
+        {% else %}
+        <p class="order-warning">Vous devez être connecté pour ajouter ce produit au panier.</p>
+        <a class="not-logged-in" href="{{ path('app_login') }}">CONNEXION / INSCRIPTION</a>
         {% endif %}
     </div>
 </section>

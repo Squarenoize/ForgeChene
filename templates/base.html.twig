@@ -27,10 +27,12 @@
             <nav>
                 <ul>
                     <li><a href="{{path ('app_home')}}#products">Nos créations</a></li>
+                    {% if app.user %}
                     <li><a href="#">Mon compte</a></li>
                     <li><a href="{{path ('app_cart')}}"><span class=" cart material-symbols-outlined">shopping_cart<span class="cart-count">{{ cart_item_count() }}</span></span>
                         </a>
                     </li>
+                    {% endif %}
                 </ul>
             </nav>
             {% if not app.user %}
