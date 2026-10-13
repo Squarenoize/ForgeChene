@@ -14,9 +14,9 @@
             <h1 class="h3">Authentification</h1>
             <h2>Accéder à votre compte</h2>
             <h3>Gérez vos commandes et votre compte</h3>
-            <form method="post">
+            <form method="post" novalidate>
                 {% if error %}
-                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    <div class="form-errors"><ul><li>Email ou mot de passe incorrect.</li></ul></div>
                 {% endif %}
 
                 {% if app.user %}
