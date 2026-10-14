@@ -21,19 +21,38 @@ final class CartController extends AbstractController
     ) {
     }
 
-    #[Route('/cart', name: 'app_cart')]
+    #[Route('/cart', name: 'app_cart', methods: ['GET'])]
     public function cartView(Request $request): Response
     {
+        //Get the active cart of the current user
+        $cart = $this->cartRepository->findActiveCartByUserId($this->getUser()->getId());
+
+        if (!$cart) {
+            $cartExist = false;
+            $cart = null;
+        }
+
         return $this->render('public/cart.html.twig', [
-            'cart' => $this->getCart($request, false),
+            'cart' => $cart,
+            'cartExist' => $cartExist ?? true,
         ]);
     }
 
     #[Route('/cart/add/{id}', name: 'app_cart_add', methods: ['POST'])]
     public function add(Product $product, Request $request): RedirectResponse
     {
+        // Get the quantity from the request, defaulting to 1 and ensuring it's at least 1
         $quantity = max(1, (int) $request->request->get('quantity', 1));
-        $cart = $this->getCart($request, true);
+
+        //Get the active cart of the current user
+        $cart = $this->cartRepository->findActiveCartByUserId($this->getUser()->getId());
+
+        if (!$cart) {
+            $cart = new Cart();
+            $cart->setUser($this->getUser());
+            $cart->setCreatedAt(new \DateTimeImmutable());
+            $this->entityManager->persist($cart);
+        }
 
         $cartItem = null;
         foreach ($cart->getCartItems() as $item) {
@@ -61,6 +80,8 @@ final class CartController extends AbstractController
     #[Route('/cart/update/{id}', name: 'app_cart_update', methods: ['POST'])]
     public function update(CartItem $cartItem, Request $request): RedirectResponse
     {
+    
+        // Ensure the current user owns the cart item before updating it
         $this->assertOwnsCartItem($cartItem, $request);
 
         $quantity = (int) $request->request->get('quantity', 1);
@@ -90,7 +111,7 @@ final class CartController extends AbstractController
     #[Route('/cart/clear', name: 'app_cart_clear', methods: ['POST'])]
     public function clear(Request $request): RedirectResponse
     {
-        $cart = $this->getCart($request, false);
+        $cart = $this->cartRepository->findActiveCartByUserId($this->getUser()->getId());
 
         if ($cart) {
             foreach ($cart->getCartItems() as $item) {
@@ -150,11 +171,11 @@ final class CartController extends AbstractController
     }
 
     /**
-     * Prevents acting on a cart item that doesn't belong to the current session's cart.
+     * Prevents acting on a cart item that doesn't belong to the user cart.
      */
     private function assertOwnsCartItem(CartItem $cartItem, Request $request): void
     {
-        if ($cartItem->getCart()?->getId() !== $request->getSession()->get('cart_id')) {
+        if ($cartItem->getCart()?->getId() !== $this->cartRepository->findActiveCartByUserId($this->getUser()->getId())?->getId()) {
             throw $this->createAccessDeniedException();
         }
     }

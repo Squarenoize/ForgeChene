@@ -3,6 +3,7 @@
 namespace App\Twig;
 
 use App\Repository\CartRepository;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -12,6 +13,7 @@ final class CartExtension extends AbstractExtension
     public function __construct(
         private readonly CartRepository $cartRepository,
         private readonly RequestStack $requestStack,
+        private readonly Security $security,
     ) {
     }
 
@@ -24,8 +26,14 @@ final class CartExtension extends AbstractExtension
 
     public function getCartItemCount(): int
     {
-        $cartId = $this->requestStack->getSession()->get('cart_id');
-        $cart = $cartId ? $this->cartRepository->find($cartId) : null;
+        //Get the active cart of the current user
+        $user = $this->security->getUser();
+        
+        if (!$user) {
+            return 0;
+        }
+
+        $cart = $this->cartRepository->findActiveCartByUserId($user->getId());
 
         if (!$cart) {
             return 0;

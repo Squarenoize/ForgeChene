@@ -15,7 +15,16 @@ class CartRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Cart::class);
     }
-
+        public function findActiveCartByUserId(int $id): ?Cart
+        {
+            return $this->createQueryBuilder('c')
+                ->andWhere('c.user = :id')
+                ->andWhere('c.is_deleted_at IS NULL')
+                ->setParameter('id', $id)
+                ->getQuery()
+                ->getOneOrNullResult()
+            ;
+        }
 //    /**
 //     * @return Cart[] Returns an array of Cart objects
 //     */

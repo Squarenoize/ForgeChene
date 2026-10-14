@@ -3,83 +3,90 @@
 {% block title %}Mon Panier{% endblock %}
 
 {% block body %}
-    {% set cartItems = cart ? cart.cartItems : [] %}
-    {% set total = 0 %}
-    {% for item in cartItems %}
-        {% set total = total + (item.product.price * item.quantity) %}
-    {% endfor %}
+    
     <div class="cart-container">
         <h1>Mon panier</h1>
-        {% if cartItems|length == 0 %}
-            <p>Votre panier est vide.</p>
+        {% if not cartExist %}
+            <p class="empty-cart">Votre panier est vide.</p>
         {% else %}
-        <div class="cart-grid">
-            <aside class="cart-summary">
-                <div class="summary-header">
-                    <h2>RÉCAPITULATIF</h2>
-                    <p>{{ cartItems|length }} pièce{{ cartItems|length > 1 ? 's' : '' }}</p>
-                </div>
-                <div class="total-calculation">
-                    <div class="total-amount">
-                        <p class="label">TOTAL TTC</p>
-                        <p class="amount">{{ total|number_format(2, ',', ' ') }} €</p>
+            {% set cartItems = cart ? cart.cartItems : [] %}
+            {% if cartItems|length == 0 %}
+                <p class="empty-cart">Votre panier est vide.</p>
+            {% else %}
+            {% set total = 0 %}
+            {% set totalQuantity = 0 %}
+            {% for item in cartItems %}
+                {% set total = total + (item.product.price * item.quantity) %}
+                {% set totalQuantity = totalQuantity + item.quantity %}
+            {% endfor %}
+            <div class="cart-grid">
+                <aside class="cart-summary">
+                    <div class="summary-header">
+                        <h2>RÉCAPITULATIF</h2>
+                        <p>{{ totalQuantity }} pièce{{ totalQuantity > 1 ? 's' : '' }}</p>
                     </div>
-                    <p class="tax-amount">TVA incluse (20%) : {{ (total * 0.2)|number_format(2, ',', ' ') }} €</p>
-                </div>
-                <form method="post" action="{{ path('app_cart_validate') }}">
-                    <input type="hidden" name="_token" data-controller="csrf-protection" value="{{ csrf_token('submit') }}">
-                    <button class="checkout-button"><span class="material-symbols-outlined">lock</span>VALIDER LA COMMANDE</button>
-                </form>
-                <div class="summary-footer">
-                    <p>CB</p>
-                    <p class="separator">•</p>
-                    <p>VISA</p>
-                    <p class="separator">•</p>
-                    <p>MASTERCARD</p>
-                    <p class="separator">•</p>
-                    <p>VIREMENT</p>
-                </div>
-            </aside>
-            <section class="cart-items">
-                <div class="headers">
-                    <p class="product">PIECE D'ATELIER</p>
-                    <p class="unit-price">PRIX UNITAIRE</p>
-                    <p class="quantity">QUANTITÉ</p>
-                    <p class="total">TOTAL TTC</p>
-                </div>
-                <div class="items-container">
-                    {% for item in cartItems %}
-                    <article class="cart-item">
-                        <img src="{{ asset(item.product.photoPath) }}" alt="{{ item.product.name }}">
-                        <div class="product-details">
-                            <p class="product">{{ item.product.name }}</p>
-                            <p class="reference">{{ item.product.reference }}</p>
+                    <div class="total-calculation">
+                        <div class="total-amount">
+                            <p class="label">TOTAL TTC</p>
+                            <p class="amount">{{ total|number_format(2, ',', ' ') }} €</p>
                         </div>
-                        <p class="unit-price">{{ item.product.price|number_format(2, ',', ' ') }} €</p>
-                        <form method="post" action="{{ path('app_cart_update', {id: item.id}) }}" class="quantity-selector" data-controller="quantity" data-quantity-autosubmit-value="true">
-                            <input type="hidden" data-controller="csrf-protection" value="{{ csrf_token('submit') }}">
-                            <button type="button" class="decrease-quantity" data-action="quantity#decrease">-</button>
-                            <input type="text" class="quantity" name="quantity" value="{{ item.quantity }}" min="1" max="{{ item.product.stockQuantity }}" data-quantity-target="input">
-                            <button type="button" class="increase-quantity" data-action="quantity#increase">+</button>
-                        </form>
-                        <div class="total">
-                            <p>{{ (item.product.price * item.quantity)|number_format(2, ',', ' ') }} €</p>
-                            <form method="post" action="{{ path('app_cart_remove', {id: item.id}) }}">
-                                <input type="hidden" data-controller="csrf-protection" value="{{ csrf_token('submit') }}">
-                                <button type="submit" class="remove-item"><span class="material-symbols-outlined">delete</span>Retirer</button>
-                            </form>
-                        </div>
-                    </article>
-                    {% endfor %}
-                    <div class="action-row">
-                    <form method="post" action="{{ path('app_cart_clear') }}">
-                        <input type="hidden" data-controller="csrf-protection" value="{{ csrf_token('submit') }}">
-                        <button type="submit" class="clear-cart"><span class="material-symbols-outlined">remove_shopping_cart</span>Vider le panier</button>
+                        <p class="tax-amount">TVA incluse (20%) : {{ (total * 0.2)|number_format(2, ',', ' ') }} €</p>
+                    </div>
+                    <form method="post" action="{{ path('app_cart_validate') }}">
+                        <input type="hidden" name="_token" data-controller="csrf-protection" value="{{ csrf_token('submit') }}">
+                        <button class="checkout-button"><span class="material-symbols-outlined">lock</span>VALIDER LA COMMANDE</button>
                     </form>
+                    <div class="summary-footer">
+                        <p>CB</p>
+                        <p class="separator">•</p>
+                        <p>VISA</p>
+                        <p class="separator">•</p>
+                        <p>MASTERCARD</p>
+                        <p class="separator">•</p>
+                        <p>VIREMENT</p>
                     </div>
-                </div>
-            </section>
-        </div>
+                </aside>
+                <section class="cart-items">
+                    <div class="headers">
+                        <p class="product">PIECE D'ATELIER</p>
+                        <p class="unit-price">PRIX UNITAIRE</p>
+                        <p class="quantity">QUANTITÉ</p>
+                        <p class="total">TOTAL TTC</p>
+                    </div>
+                    <div class="items-container">
+                        {% for item in cartItems %}
+                        <article class="cart-item">
+                            <img src="{{ asset(item.product.photoPath) }}" alt="{{ item.product.name }}">
+                            <div class="product-details">
+                                <p class="product">{{ item.product.name }}</p>
+                                <p class="reference">{{ item.product.reference }}</p>
+                            </div>
+                            <p class="unit-price">{{ item.product.price|number_format(2, ',', ' ') }} €</p>
+                            <form method="post" action="{{ path('app_cart_update', {id: item.id}) }}" class="quantity-selector" data-controller="quantity" data-quantity-autosubmit-value="true">
+                                <input type="hidden" data-controller="csrf-protection" value="{{ csrf_token('submit') }}">
+                                <button type="button" class="decrease-quantity" data-action="quantity#decrease">-</button>
+                                <input type="text" class="quantity" name="quantity" value="{{ item.quantity }}" min="1" max="{{ item.product.stockQuantity }}" data-quantity-target="input">
+                                <button type="button" class="increase-quantity" data-action="quantity#increase">+</button>
+                            </form>
+                            <div class="total">
+                                <p>{{ (item.product.price * item.quantity)|number_format(2, ',', ' ') }} €</p>
+                                <form method="post" action="{{ path('app_cart_remove', {id: item.id}) }}">
+                                    <input type="hidden" data-controller="csrf-protection" value="{{ csrf_token('submit') }}">
+                                    <button type="submit" class="remove-item"><span class="material-symbols-outlined">delete</span>Retirer</button>
+                                </form>
+                            </div>
+                        </article>
+                        {% endfor %}
+                        <div class="action-row">
+                        <form method="post" action="{{ path('app_cart_clear') }}">
+                            <input type="hidden" data-controller="csrf-protection" value="{{ csrf_token('submit') }}">
+                            <button type="submit" class="clear-cart"><span class="material-symbols-outlined">remove_shopping_cart</span>Vider le panier</button>
+                        </form>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            {% endif %}
         {% endif %}
     </div>
 {% endblock %}

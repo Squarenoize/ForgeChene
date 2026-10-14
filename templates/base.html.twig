@@ -23,7 +23,9 @@
     </head>
     <body>
         <header class="header-container">
+            <a href="{{ path('app_home') }}">
             <img class="logo" src="{{ asset('img/logo_forge-chene.png') }}" alt="Forge & Chêne Logo">
+            </a>
             <nav>
                 <ul>
                     <li><a href="{{path ('app_home')}}#products">Nos créations</a></li>
@@ -39,9 +41,10 @@
             <a class="login-register" href="{{ path('app_login') }}">CONNEXION / INSCRIPTION</a>
             {% else %}
             <a class="logout" href="{{ path('app_logout') }}">DÉCONNEXION</a>
-            {% endif %}
+            {% endif %}   
         </header>
         <div class="main-container">
+            <div class="divider"></div>
             {% block body %}{% endblock %}
         </div>
         <footer class="footer-container">

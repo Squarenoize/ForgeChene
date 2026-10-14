@@ -40,13 +40,20 @@ body {
     max-width: 1280px;
     margin: 0 auto;
     padding: 20px;
+
+    .divider {
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(to right, var(--backgroundColorPrimary) 0%, var(--textColorSecondary) 50%, var(--backgroundColorPrimary) 100%);
+        margin-bottom: 5px;
+    }
 }
 
 .header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 0;
+    padding: 20px 0 0 0;
 
     .logo {
         height: 63px;
@@ -723,6 +730,10 @@ footer {
 
 .cart-container {
     padding: 20px;
+
+    .empty-cart {
+        min-height: 55vh;
+    }
 
     h1 {
         font-family: 'EB Garamond', serif;
