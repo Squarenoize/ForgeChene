@@ -1231,3 +1231,190 @@ footer {
         }
     }
 }
+
+/**
+ * Account page
+ */
+
+ .account-container {
+     display: flex;
+     flex-direction: column;
+     margin: 40px 0;
+     padding: 24px;
+ }
+
+ .account-container, .order-card {
+    background-color: var(--backgroundColorCharcoal);
+    border-radius: 12px;
+ }
+
+ .account-container {
+    h1 {
+        font-size: 38px;
+        font-family: 'EB Garamond', serif;
+        font-weight: 400;
+        color: var(--textColorTertiary);
+    }
+    p {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .account-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+        justify-content: space-between;
+
+        a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--backgroundColorCharcoal);
+            transition: color 0.3s ease;
+            background-color: var(--textColorSecondary);
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+        a:hover {
+            transform: translateY(-2px);
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+    }
+ }
+
+ .orders-container {
+     display: flex;
+     flex-direction: column;
+     gap: 20px;
+
+     h2 {
+         font-size: 22px;
+         font-family: 'EB Garamond', serif;
+         font-weight: 400;
+         color: var(--textColorTertiary);
+         margin-bottom: 20px;
+     }
+
+     .orders-cards {
+         display: flex;
+         flex-direction: column;
+         gap: 10px;
+
+         .order-card {
+             display: flex;
+             flex-direction: column;
+             padding: 30px;
+             gap: 20px;
+         }
+
+         .order-details {
+             display: flex;
+             justify-content: space-between;
+
+             .order-info {
+                 display: flex;
+                 gap: 20px;
+
+                 .label {
+                    font-size: 11px;
+                    font-family: 'JetBrains Mono', monospace;
+                    text-transform: uppercase;
+                    color: var(--textColorDetail);
+                 }
+                 .value {
+                    font-size: 16px;
+                    font-weight: normal;
+                    color: var(--textColorTertiary);
+
+                    &.number {
+                        font-family: 'JetBrains Mono', monospace;
+                    }
+                 }
+             }
+
+             .order-total {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+
+                 .label {
+                    font-size: 11px;
+                    font-family: 'JetBrains Mono', monospace;
+                    text-transform: uppercase;
+                    color: var(--textColorDetail);
+                 }
+                 .value {
+                    font-size: 16px;
+                    font-weight: normal;
+                    color: var(--textColorTertiary);
+                 }
+             }
+         }
+
+         
+     }
+     .order-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+
+        .item-container {
+            display: flex;
+            justify-content: space-between;
+
+            .item {
+                display: flex;
+                gap: 20px;
+                align-items: center;
+
+                img {
+                    height: 64px;
+                }
+
+                .item-description {
+                    display: flex;
+                    flex-direction: column;
+
+                    .name {
+                        font-size: 15px;
+                        color: var(--textColorTertiary);
+                    }
+                    .short-description {
+                        font-size: 11px;
+                        font-family: 'JetBrains Mono', monospace;
+                        color: var(--textColorDetail);
+                    }
+                }
+            }    
+        }
+        .item-quantity {
+            display: flex;
+            align-items: flex-end;
+            gap: 20px;
+
+            .quantity {
+                font-size: 13px;
+                font-family: 'JetBrains Mono', monospace;
+                color: var(--textColorTertiary);
+            }
+
+            .price {
+                font-size: 17px;
+                color: var(--textColorTertiary);
+            }
+        } 
+    }
+
+    .warranty {
+        font-size: 14px;
+        font-family: 'JetBrains Mono', monospace;
+        color: var(--textColorDetail);
+    }
+ }

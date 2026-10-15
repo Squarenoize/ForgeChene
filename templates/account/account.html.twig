@@ -8,27 +8,27 @@
         <h1>Mon Compte</h1>
         <p>{{ user.firstName }} {{ user.lastName }}</p>
         <div class="account-actions">
-            <a href="#">Activer mon accès API</a>
-            <a href="#">Voir ma clé API</a>
-            <a href="#">Profil et adresse de livraison</a>
-            <a href="#">Supprimer mon compte</a>
+            <a href="#"><span class="material-symbols-outlined">terminal</span>Activer mon accès API</a>
+            <a href="#"><span class="material-symbols-outlined">key</span>Voir ma clé API</a>
+            <a href="#"><span class="material-symbols-outlined">person</span>Profil et adresse de livraison</a>
+            <a href="#"><span class="material-symbols-outlined">shield_with_heart</span>Supprimer mon compte</a>
         </div>
     </div>
     <div class="orders-container">
-        <h2>Mes Commandes</h2>
+        <h2 class="my-orders">Mes Commandes</h2>
         <div class="orders-cards">
             <div class="order-card">
                 <div class="order-details">
                     <div class="order-info">
-                        <div class="order-number">
+                        <div>
                             <p class="label">Commande n°</p>
-                            <p class="value">12345</p>
+                            <p class="value number">12345</p>
                         </div>
-                        <div class="order-date">
+                        <div>
                             <p class="label">Date</p>
                             <p class="value">01/01/2024</p>
                         </div>
-                        <div class="order-status">
+                        <div>
                             <p class="label">Statut</p>
                             <p class="value">En cours</p>
                         </div>
@@ -48,8 +48,10 @@
                             </div>
                         </div>
                     </div>
-                    <p>Quantité: 2</p>
-                    <p>Prix: 50€</p>
+                    <div class="item-quantity">
+                        <p class="quantity">Qté: 2</p>
+                        <p class="price">50€</p>
+                    </div>
                 </div>
                 <div class="warranty">
                     <p>Garantie structurelle de 10 ans active jusqu'au 01/01/2034</p>
