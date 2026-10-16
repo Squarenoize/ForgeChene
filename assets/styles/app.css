@@ -110,6 +110,8 @@ body {
 footer {   
     p {
         font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        color: var(--textColorDetail);
         padding: 24px;
     }
 }

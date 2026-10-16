@@ -2,10 +2,11 @@ erDiagram
     USER ||--o{ CART : creates
     USER ||--o{ ORDER : places
     CART ||--o{ CART_ITEM : contains
+    CART ||--o{ ORDER : "converts to"
     PRODUCT ||--o{ CART_ITEM : "added to"
     PRODUCT ||--o{ ORDER_ITEM : "ordered in"
-    ORDER ||--|{ ORDER_ITEM : contains
-    ORDER ||--|{ ORDER_STATUS_HISTORY : "tracks"
+    ORDER ||--o{ ORDER_ITEM : contains
+    ORDER ||--o{ ORDER_STATUS_HISTORY : "tracks"
 
     USER {
         int user_id PK
@@ -33,6 +34,7 @@ erDiagram
         int cart_id PK
         int user_id FK
         datetime created_at
+        datetime converted_at
         datetime is_deleted_at
     }
 
@@ -46,6 +48,7 @@ erDiagram
     ORDER {
         int order_id PK
         int user_id FK
+        int cart_id FK
         string status
         date order_date
         float total_amount

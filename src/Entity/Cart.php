@@ -19,6 +19,9 @@ class Cart
     private ?\DateTimeImmutable $created_at = null;
 
     #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $converted_at = null;
+
+    #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $is_deleted_at = null;
 
     /**
@@ -26,6 +29,9 @@ class Cart
      */
     #[ORM\OneToMany(targetEntity: CartItem::class, mappedBy: 'cart', orphanRemoval: true)]
     private Collection $cartItems;
+
+    #[ORM\OneToOne(mappedBy: 'cart')]
+    private ?Order $order = null;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
@@ -103,6 +109,38 @@ class Cart
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getConvertedAt(): ?\DateTimeImmutable
+    {
+        return $this->converted_at;
+    }
+
+    public function setConvertedAt(?\DateTimeImmutable $converted_at): static
+    {
+        $this->converted_at = $converted_at;
+
+        return $this;
+    }
+
+    public function getOrder(): ?Order
+    {
+        return $this->order;
+    }
+
+    public function setOrder(?Order $order): static
+    {
+        if ($order === null && $this->order !== null) {
+            $this->order->setCart(null);
+        }
+
+        if ($order !== null && $order->getCart() !== $this) {
+            $order->setCart($this);
+        }
+
+        $this->order = $order;
 
         return $this;
     }

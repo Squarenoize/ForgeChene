@@ -22,6 +22,7 @@ classDiagram
     
     class Cart {
         -datetime createdAt
+        -datetime convertedAt
         -datetime isDeletedAt
     }
     
@@ -30,7 +31,7 @@ classDiagram
     }
     
     class Order {
-        -string status
+        -OrderStatusEnum status
         -date orderDate
         -float totalAmount
     }
@@ -41,16 +42,28 @@ classDiagram
     }
 
     class OrderStatusHistory {
-        -string status
+        -OrderStatusEnum status
         -datetime changedAt
+    }
+    
+    class OrderStatusEnum {
+        <<enumeration>>
+        PENDING
+        PROCESSING
+        SHIPPED
+        DELIVERED
+        CANCELLED
     }
     
     %% Relations entre classes (avec cardinalités)
 
     User "1" -- "0..*" Cart
     User "1" -- "0..*" Order
+    Cart "1" -- "0..1" Order
     Cart "1" -- "0..*" CartItem
     Product "1" -- "0..*" CartItem
     Product "1" -- "0..*" OrderItem
     Order "1" -- "1..*" OrderItem
     Order "1" -- "1..*" OrderStatusHistory
+    Order --> OrderStatusEnum
+    OrderStatusHistory --> OrderStatusEnum
