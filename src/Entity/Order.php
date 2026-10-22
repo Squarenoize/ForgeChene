@@ -20,8 +20,8 @@ class Order
     #[ORM\Column(type: 'string', enumType: OrderStatusEnum::class)]
     private ?OrderStatusEnum $status = null;
 
-    #[ORM\Column(type: 'date')]
-    private ?\DateTimeInterface $order_date = null;
+    #[ORM\Column(type: 'date_immutable')]
+    private ?\DateTimeImmutable $order_date = null;
 
     #[ORM\Column]
     private ?float $total_amount = null;
@@ -69,12 +69,12 @@ class Order
         return $this;
     }
 
-    public function getOrderDate(): ?\DateTimeInterface
+    public function getOrderDate(): ?\DateTimeImmutable
     {
         return $this->order_date;
     }
 
-    public function setOrderDate(\DateTimeInterface $order_date): static
+    public function setOrderDate(\DateTimeImmutable $order_date): static
     {
         $this->order_date = $order_date;
 

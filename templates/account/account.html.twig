@@ -17,46 +17,59 @@
     <div class="orders-container">
         <h2 class="my-orders">Mes Commandes</h2>
         <div class="orders-cards">
-            <div class="order-card">
-                <div class="order-details">
-                    <div class="order-info">
-                        <div>
-                            <p class="label">Commande n°</p>
-                            <p class="value number">12345</p>
-                        </div>
-                        <div>
-                            <p class="label">Date</p>
-                            <p class="value">01/01/2024</p>
-                        </div>
-                        <div>
-                            <p class="label">Statut</p>
-                            <p class="value">En cours</p>
-                        </div>
-                    </div>
-                    <div class="order-total">
-                        <p class="label">Total</p>
-                        <p class="value">100€</p>
-                    </div>
-                </div>
-                <div class="order-item">
-                    <div class="item-container">
-                        <div class="item">
-                            <img src=" {{ asset('products/bourbonnais.png') }}" alt="Nom du produit">
-                            <div class="item-description">
-                                <p class="name">Article: Nom du produit</p>
-                                <p class="short-description">Description du produit</p>
+            {% set statusLabels = {
+                'pending': 'En attente',
+                'processing': 'En préparation',
+                'shipped': 'Expédiée',
+                'delivered': 'Livrée',
+                'cancelled': 'Annulée'
+            } %}
+            {% for order in orders %}
+                <div class="order-card">
+                    <div class="order-details">
+                        <div class="order-info">
+                            <div>
+                                <p class="label">Commande n°</p>
+                                <p class="value number">{{ order.id }}</p>
+                            </div>
+                            <div>
+                                <p class="label">Date</p>
+                                <p class="value">{{ order.orderDate|date('d/m/Y') }}</p>
+                            </div>
+                            <div>
+                                <p class="label">Statut</p>
+                                <p class="value">{{ statusLabels[order.status.value] }}</p>
                             </div>
                         </div>
+                        <div class="order-total">
+                            <p class="label">Total</p>
+                            <p class="value">{{ order.totalAmount|number_format(2, ',', ' ') }}€</p>
+                        </div>
                     </div>
-                    <div class="item-quantity">
-                        <p class="quantity">Qté: 2</p>
-                        <p class="price">50€</p>
+                    {% for item in order.orderItems %}
+                        <div class="order-item">
+                            <div class="item-container">
+                                <div class="item">
+                                    <img src="{{ asset(item.product.photoPath) }}" alt="{{ item.product.name }}">
+                                    <div class="item-description">
+                                        <p class="name">Article: {{ item.product.name }}</p>
+                                        <p class="short-description">{{ item.product.shortDescription }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item-quantity">
+                                <p class="quantity">Qté: {{ item.quantity }}</p>
+                                <p class="price">{{ item.unitPriceAtOrder|number_format(2, ',', ' ') }}€</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <div class="warranty">
+                        <p>Garantie structurelle de 10 ans active jusqu'au {{ order.orderDate|date_modify('+10 years')|date('d/m/Y') }}</p>
                     </div>
                 </div>
-                <div class="warranty">
-                    <p>Garantie structurelle de 10 ans active jusqu'au 01/01/2034</p>
-                </div>
-            </div>
+            {% else %}
+                <p>Vous n'avez pas encore de commande.</p>
+            {% endfor %}
         </div>
     </div>
 

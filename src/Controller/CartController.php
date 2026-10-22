@@ -4,7 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Cart;
 use App\Entity\CartItem;
+use App\Entity\Order;
+use App\Entity\OrderItem;
+use App\Entity\OrderStatusHistory;
 use App\Entity\Product;
+use App\Enum\OrderStatusEnum;
 use App\Repository\CartRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -126,27 +130,54 @@ final class CartController extends AbstractController
     #[Route('/cart/validate', name: 'app_cart_validate', methods: ['POST'])]
     public function validate(Request $request): RedirectResponse
     {
-        $cart = $this->getCart($request, false);
+        $cart = $this->cartRepository->findActiveCartByUserId($this->getUser()->getId());
 
-        if ($cart) {
-            // MVP+2 Contact form sending with product ordered details
-            // Edit products stock quantities
-            foreach ($cart->getCartItems() as $item) {
-                $product = $item->getProduct();
-                $product->setStockQuantity($product->getStockQuantity() - $item->getQuantity());
-                $this->entityManager->persist($product);
-            }
-
-            // Delete the database cart after validation (set is_deleted_at)
-            $cart->setIsDeletedAt(new \DateTimeImmutable());
-
-            // Delete the cart from the session
-            $request->getSession()->remove('cart_id');
-
-            $this->entityManager->flush();
+        if (!$cart || $cart->getCartItems()->isEmpty()) {
+            return $this->redirectToRoute('app_cart');
         }
 
-        return $this->redirectToRoute('app_cart');
+        $now = new \DateTimeImmutable();
+
+        $order = new Order();
+        $order->setUser($this->getUser());
+        $order->setCart($cart);
+        $order->setStatus(OrderStatusEnum::PENDING);
+        $order->setOrderDate($now);
+
+        $total = 0.0;
+        foreach ($cart->getCartItems() as $item) {
+            $product = $item->getProduct();
+
+            // Snapshot the unit price so later price changes don't alter the order
+            $orderItem = new OrderItem();
+            $orderItem->setProduct($product);
+            $orderItem->setQuantity($item->getQuantity());
+            $orderItem->setUnitPriceAtOrder($product->getPrice());
+            $order->addOrderItem($orderItem);
+            $this->entityManager->persist($orderItem);
+
+            $total += $product->getPrice() * $item->getQuantity();
+
+            $product->setStockQuantity($product->getStockQuantity() - $item->getQuantity());
+        }
+        $order->setTotalAmount($total);
+
+        $history = new OrderStatusHistory();
+        $history->setStatus(OrderStatusEnum::PENDING);
+        $history->setChangedAt($now);
+        $order->addOrderStatusHistory($history);
+
+        $this->entityManager->persist($order);
+        $this->entityManager->persist($history);
+
+        // Mark the cart as validated (set is_deleted_at)
+        $cart->setIsDeletedAt($now);
+
+        $request->getSession()->remove('cart_id');
+
+        $this->entityManager->flush();
+
+        return $this->redirectToRoute('app_account');
     }
 
     /**
