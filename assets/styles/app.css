@@ -1268,10 +1268,15 @@ footer {
         margin-top: 20px;
         justify-content: space-between;
 
-        a {
+        form {
+            display: contents;
+        }
+        a, button {
             display: flex;
             align-items: center;
             gap: 10px;
+            border: none;
+            cursor: pointer;
             font-size: 12px;
             font-family: 'JetBrains Mono', monospace;
             font-weight: bold;
@@ -1283,7 +1288,7 @@ footer {
             padding: 10px 20px;
             border-radius: 5px;
         }
-        a:hover {
+        a:hover, button:hover {
             transform: translateY(-2px);
             transition: transform 0.3s ease, color 0.3s ease;
         }

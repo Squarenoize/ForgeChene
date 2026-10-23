@@ -11,7 +11,10 @@
             <a href="#"><span class="material-symbols-outlined">terminal</span>Activer mon accès API</a>
             <a href="#"><span class="material-symbols-outlined">key</span>Voir ma clé API</a>
             <a href="#"><span class="material-symbols-outlined">person</span>Profil et adresse de livraison</a>
-            <a href="#"><span class="material-symbols-outlined">shield_with_heart</span>Supprimer mon compte</a>
+            <form method="post" action="{{ path('app_account_delete') }}" onsubmit="return confirm('Supprimer définitivement votre compte ? Vos données personnelles seront anonymisées.');">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete-account') }}">
+                <button type="submit"><span class="material-symbols-outlined">shield_with_heart</span>Supprimer mon compte</button>
+            </form>
         </div>
     </div>
     <div class="orders-container">
