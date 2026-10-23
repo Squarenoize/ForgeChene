@@ -182,27 +182,6 @@ final class CartController extends AbstractController
     }
 
     /**
-     * Fetches the cart stored in session if anonymous user, optionally creating a new one.
-     */
-    private function getCart(Request $request, bool $createIfMissing): ?Cart
-    {
-        $session = $request->getSession();
-        $cartId = $session->get('cart_id');
-
-        $cart = $cartId ? $this->cartRepository->find($cartId) : null;
-
-        if (!$cart && $createIfMissing) {
-            $cart = new Cart();
-            $cart->setCreatedAt(new \DateTimeImmutable());
-            $this->entityManager->persist($cart);
-            $this->entityManager->flush();
-            $session->set('cart_id', $cart->getId());
-        }
-
-        return $cart;
-    }
-
-    /**
      * Prevents acting on a cart item that doesn't belong to the user cart.
      */
     private function assertOwnsCartItem(CartItem $cartItem, Request $request): void
