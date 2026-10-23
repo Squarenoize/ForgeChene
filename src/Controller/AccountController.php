@@ -52,4 +52,16 @@ final class AccountController extends AbstractController
         // logout the user
         return $this->redirectToRoute('app_logout');
     }
+
+    #[Route('/account/api/generate-api-key', name: 'app_account_api_access')]
+    public function generateApiAccess(EntityManagerInterface $entityManager): Response
+    {
+        $user = $this->getUser();
+        if ($user) {
+            $user->setApiKey(bin2hex(random_bytes(32)));
+            $entityManager->persist($user);
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('app_account');
+    }
 }

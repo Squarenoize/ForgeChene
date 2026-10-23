@@ -8,8 +8,11 @@
         <h1>Mon Compte</h1>
         <p>{{ user.firstName }} {{ user.lastName }}</p>
         <div class="account-actions">
-            <a href="#"><span class="material-symbols-outlined">terminal</span>Activer mon accès API</a>
+            {% if not user.ApiKey %}
+            <a href="{{ path('app_account_api_access') }}"><span class="material-symbols-outlined">terminal</span>Activer mon accès API</a>
+            {% else %}
             <a href="#"><span class="material-symbols-outlined">key</span>Voir ma clé API</a>
+            {% endif %}
             <a href="#"><span class="material-symbols-outlined">person</span>Profil et adresse de livraison</a>
             <form method="post" action="{{ path('app_account_delete') }}" onsubmit="return confirm('Supprimer définitivement votre compte ? Vos données personnelles seront anonymisées.');">
                 <input type="hidden" name="_token" value="{{ csrf_token('delete-account') }}">
