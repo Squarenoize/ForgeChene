@@ -1,0 +1,11 @@
+
+{%- set flashes = app.flashes -%}
+{%- if flashes -%}
+    <div class="alert-container">
+        {%- for type, messages in flashes -%}
+            {%- for message in messages -%}
+                <div class="alert alert-{{ type }}">{{ message }}</div>
+            {%- endfor -%}
+        {%- endfor -%}
+    </div>
+{%- endif -%}
