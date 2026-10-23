@@ -170,8 +170,9 @@ final class CartController extends AbstractController
         $this->entityManager->persist($order);
         $this->entityManager->persist($history);
 
-        // Mark the cart as validated (set is_deleted_at)
+        // Mark the cart as validated (set is_deleted_at) and convert it to an order
         $cart->setIsDeletedAt($now);
+        $cart->setConvertedAt($now);
 
         $request->getSession()->remove('cart_id');
 
