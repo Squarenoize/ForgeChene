@@ -86,7 +86,9 @@ final class CartController extends AbstractController
     {
     
         // Ensure the current user owns the cart item before updating it
-        $this->assertOwnsCartItem($cartItem, $request);
+        if ($cartItem->getCart()?->getId() !== $this->cartRepository->findActiveCartByUserId($this->getUser()->getId())?->getId()) {
+            throw $this->createAccessDeniedException();
+        }
 
         $quantity = (int) $request->request->get('quantity', 1);
 
@@ -104,7 +106,10 @@ final class CartController extends AbstractController
     #[Route('/cart/remove/{id}', name: 'app_cart_remove', methods: ['POST'])]
     public function remove(CartItem $cartItem, Request $request): RedirectResponse
     {
-        $this->assertOwnsCartItem($cartItem, $request);
+        // Ensure the current user owns the cart item before removing it
+        if ($cartItem->getCart()?->getId() !== $this->cartRepository->findActiveCartByUserId($this->getUser()->getId())?->getId()) {
+            throw $this->createAccessDeniedException();
+        }
 
         $this->entityManager->remove($cartItem);
         $this->entityManager->flush();
