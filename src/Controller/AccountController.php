@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Service\MessageService;
 
 final class AccountController extends AbstractController
 {
@@ -54,13 +55,27 @@ final class AccountController extends AbstractController
     }
 
     #[Route('/account/api/generate-api-key', name: 'app_account_api_access')]
-    public function generateApiAccess(EntityManagerInterface $entityManager): Response
+    public function generateApiAccess(EntityManagerInterface $entityManager, MessageService $messageService): Response
     {
         $user = $this->getUser();
         if ($user) {
             $user->setApiKey(bin2hex(random_bytes(32)));
             $entityManager->persist($user);
             $entityManager->flush();
+            $messageService->addSuccess("Votre clé API a été générée avec succès.");
+        }
+        return $this->redirectToRoute('app_account');
+    }
+
+    #[Route('account/api/show-api-key', name: 'app_account_api_show')]
+    public function showApiKey(MessageService $messageService): Response
+    {
+        $user = $this->getUser();
+        $apiKey = $user ? $user->getApiKey() : null;
+        if ($apiKey) {
+            $messageService->addSuccess("Votre clé API est : $apiKey");
+        } else {
+            $messageService->addError("Vous n'avez pas de clé API.");
         }
         return $this->redirectToRoute('app_account');
     }
