@@ -181,13 +181,4 @@ final class CartController extends AbstractController
         return $this->redirectToRoute('app_account');
     }
 
-    /**
-     * Prevents acting on a cart item that doesn't belong to the user cart.
-     */
-    private function assertOwnsCartItem(CartItem $cartItem, Request $request): void
-    {
-        if ($cartItem->getCart()?->getId() !== $this->cartRepository->findActiveCartByUserId($this->getUser()->getId())?->getId()) {
-            throw $this->createAccessDeniedException();
-        }
-    }
 }
