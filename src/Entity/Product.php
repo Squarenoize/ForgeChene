@@ -7,9 +7,11 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\OpenApi\Model;
+use App\State\ProductProvider;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 #[ApiResource(
+    provider: ProductProvider::class,
     operations: [
         new \ApiPlatform\Metadata\GetCollection(
             openapi: new Model\Operation(
@@ -44,6 +46,8 @@ class Product
 
     #[ORM\Column(length: 255)]
     private ?string $photo_path = null;
+
+    private ?string $photoUrl = null;
 
     #[ORM\Column]
     private ?float $price = null;
@@ -100,6 +104,18 @@ class Product
     public function setDescription(string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getPhotoUrl(): ?string
+    {
+        return $this->photoUrl;
+    }
+
+    public function setPhotoUrl(?string $photoUrl): static
+    {
+        $this->photoUrl = $photoUrl;
 
         return $this;
     }
