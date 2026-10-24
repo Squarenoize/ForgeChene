@@ -43,7 +43,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $lastname = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $ApiKey = null;
+    private ?string $apiKey = null;
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $isDeletedAt = null;
@@ -155,12 +155,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getApiKey(): ?string
     {
-        return $this->ApiKey;
+        return $this->apiKey;
     }
 
-    public function setApiKey(?string $ApiKey): static
+    public function setApiKey(?string $apiKey): static
     {
-        $this->ApiKey = $ApiKey;
+        $this->apiKey = $apiKey;
 
         return $this;
     }
