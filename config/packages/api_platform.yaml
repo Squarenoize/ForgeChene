@@ -4,6 +4,11 @@ api_platform:
     formats:
         jsonld: ['application/ld+json']
         json: ['application/json']
+    swagger:
+        api_keys:
+            JWT:
+                name: Authorization
+                type: header
     defaults:
         stateless: true
         cache_headers:

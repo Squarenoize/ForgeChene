@@ -6,12 +6,21 @@ use App\Repository\ProductRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\OpenApi\Model;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 #[ApiResource(
     operations: [
-        new \ApiPlatform\Metadata\GetCollection(),
-        new \ApiPlatform\Metadata\Get()
+        new \ApiPlatform\Metadata\GetCollection(
+            openapi: new Model\Operation(
+                summary: 'Obtenir la liste des produits (requiert un token JWT)',
+            )
+        ),
+        new \ApiPlatform\Metadata\Get(
+            openapi: new Model\Operation(
+                summary: 'Obtenir un produit spécifique (requiert un token JWT)',
+            )
+        )
     ]
 )]
 class Product
