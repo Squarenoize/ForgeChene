@@ -54,28 +54,23 @@ final class AccountController extends AbstractController
         return $this->redirectToRoute('app_logout');
     }
 
-    #[Route('/account/api/generate-api-key', name: 'app_account_api_access')]
-    public function generateApiAccess(EntityManagerInterface $entityManager, MessageService $messageService): Response
+    #[Route('/account/api/generate-api-key', name: 'app_account_api_access', methods: ['POST'])]
+    public function generateApiAccess(Request $request, EntityManagerInterface $entityManager, MessageService $messageService): Response
     {
+        if (!$this->isCsrfTokenValid('generate-api-key', (string) $request->request->get('_token'))) {
+            throw $this->createAccessDeniedException('Jeton CSRF invalide.');
+        }
+
         $user = $this->getUser();
         if ($user) {
-            $user->setApiKey(bin2hex(random_bytes(32)));
+            $apiKey = bin2hex(random_bytes(32));
+            // Only the hash is stored: the plain key is shown once and cannot be recovered.
+            $user->setApiKey(hash('sha256', $apiKey));
             $entityManager->persist($user);
             $entityManager->flush();
-            $messageService->addSuccess("Votre clé API a été générée avec succès.");
-        }
-        return $this->redirectToRoute('app_account');
-    }
-
-    #[Route('account/api/show-api-key', name: 'app_account_api_show')]
-    public function showApiKey(MessageService $messageService): Response
-    {
-        $user = $this->getUser();
-        $apiKey = $user ? $user->getApiKey() : null;
-        if ($apiKey) {
-            $messageService->addSuccess("Votre clé API est : $apiKey");
-        } else {
-            $messageService->addError("Vous n'avez pas de clé API.");
+            $messageService->addWarning("Ci-dessous se trouve votre clé API. Copiez-la maintenant, elle ne sera plus jamais affichée.");
+            $messageService->addSuccess("$apiKey");
+            
         }
         return $this->redirectToRoute('app_account');
     }
