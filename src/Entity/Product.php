@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\OpenApi\Model;
+use ApiPlatform\Metadata\Pagination;
 use App\State\ProductProvider;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
@@ -15,8 +16,10 @@ use App\State\ProductProvider;
     operations: [
         new \ApiPlatform\Metadata\GetCollection(
             openapi: new Model\Operation(
-                summary: 'Obtenir la liste des produits (requiert un token JWT)',
-            )
+                summary: 'Obtenir la liste des produits (requiert un token JWT)',  
+            ),
+            paginationItemsPerPage: 10,
+            paginationMaximumItemsPerPage: 50
         ),
         new \ApiPlatform\Metadata\Get(
             openapi: new Model\Operation(
