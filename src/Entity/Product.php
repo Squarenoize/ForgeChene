@@ -7,10 +7,10 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\OpenApi\Model;
-use ApiPlatform\Metadata\Pagination;
 use App\State\ProductProvider;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
+//API Platform resource for Product entity
 #[ApiResource(
     provider: ProductProvider::class,
     operations: [
@@ -28,6 +28,7 @@ use App\State\ProductProvider;
         )
     ]
 )]
+
 class Product
 {
     #[ORM\Id]

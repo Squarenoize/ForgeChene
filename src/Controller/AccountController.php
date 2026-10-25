@@ -74,4 +74,20 @@ final class AccountController extends AbstractController
         }
         return $this->redirectToRoute('app_account');
     }
+    #[Route('/account/api/delete-api-key', name: 'app_account_api_delete', methods: ['POST'])]
+    public function deleteApiKey(Request $request, EntityManagerInterface $entityManager, MessageService $messageService): Response
+    {
+        if (!$this->isCsrfTokenValid('generate-api-key', (string) $request->request->get('_token'))) {
+            throw $this->createAccessDeniedException('Jeton CSRF invalide.');
+        }
+
+        $user = $this->getUser();
+        if ($user) {
+            $user->setApiKey(null);
+            $entityManager->persist($user);
+            $entityManager->flush();
+            $messageService->addSuccess("Votre clé API a été supprimée avec succès.");
+        }
+        return $this->redirectToRoute('app_account');
+    }
 }
