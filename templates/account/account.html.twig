@@ -10,23 +10,26 @@
                 <h1>Mon Compte</h1>
                 <p>{{ user.firstName }} {{ user.lastName }}</p>
             </div>
-            <div class="account-actions">
-                <form method="post" action="{{ path('app_account_api_access') }}">
-                    <input type="hidden" name="_token" value="{{ csrf_token('generate-api-key') }}">
-                    <button type="submit"><span class="material-symbols-outlined">terminal</span>{{ user.apiKey ? 'Régénérer ma clé API' : 'Activer mon accès API' }}</button>
-                </form>
-                {% if user.apiKey %}
-                    <form method="post" action="{{ path('app_account_api_delete') }}">
+            <div class="buttons-container">
+                <div class="divider"></div>
+                <div class="account-actions">
+                    <form method="post" action="{{ path('app_account_api_access') }}">
                         <input type="hidden" name="_token" value="{{ csrf_token('generate-api-key') }}">
-                        <button type="submit"><span class="material-symbols-outlined">delete</span>Supprimer ma clé API</button>
+                        <button type="submit"><span class="material-symbols-outlined">terminal</span>{{ user.apiKey ? 'Régénérer ma clé API' : 'Activer mon accès API' }}</button>
                     </form>
-                {% endif %}
-                <!--TODO: Add link to profile and shipping address management -->
-                <a href="#"><span class="material-symbols-outlined">person</span>Profil et adresse de livraison</a>
-                <form method="post" action="{{ path('app_account_delete') }}" onsubmit="return confirm('Supprimer définitivement votre compte ? Vos données personnelles seront anonymisées.');">
-                    <input type="hidden" name="_token" value="{{ csrf_token('delete-account') }}">
-                    <button type="submit"><span class="material-symbols-outlined">shield_with_heart</span>Supprimer mon compte</button>
-                </form>
+                    {% if user.apiKey %}
+                        <form method="post" action="{{ path('app_account_api_delete') }}">
+                            <input type="hidden" name="_token" value="{{ csrf_token('generate-api-key') }}">
+                            <button type="submit"><span class="material-symbols-outlined">delete</span>Supprimer ma clé API</button>
+                        </form>
+                    {% endif %}
+                    <!--TODO: Add link to profile and shipping address management -->
+                    <a href="#"><span class="material-symbols-outlined">person</span>Profil et adresse de livraison</a>
+                    <form method="post" action="{{ path('app_account_delete') }}" onsubmit="return confirm('Supprimer définitivement votre compte ? Vos données personnelles seront anonymisées.');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete-account') }}">
+                        <button type="submit"><span class="material-symbols-outlined">shield_with_heart</span>Supprimer mon compte</button>
+                    </form>
+                </div>
             </div>
         </div>
         {% include 'public/component/alerts.html.twig' %}

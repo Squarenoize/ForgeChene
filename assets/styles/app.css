@@ -21,7 +21,7 @@
     --backgroundColorTertiary: #000000;
     --backgroundColorCharcoal: #1B1B1D;
     --textColorPrimary: #D8C2B5;
-    --textColorSecondary: #FFB783;
+    --textColorSecondary: #d08c2b;
     --textColorTertiary: #E5E1E4;
     --textColorDarkBrown: #452000;
     --textColorDetail: #A08D81;
@@ -68,7 +68,7 @@ body {
 .main-container, .header-container, .footer-container {
     max-width: 1280px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 10px;
 
     .divider {
         width: 100%;
@@ -124,6 +124,7 @@ body {
     }
     .login-register, .logout {
         font-family: 'JetBrains Mono', monospace;
+        text-align: right;
         color: var(--textColorPrimary);
         text-decoration: none;
         min-width: 250px;
@@ -1099,6 +1100,7 @@ footer {
         width: 100%;
         gap: 15px;
         background-color: var(--backgroundColorCharcoal);
+        margin-top: 20px;
         padding: 30px;
         border-radius: 5px;
 
@@ -1319,7 +1321,7 @@ footer {
                 color: var(--backgroundColorCharcoal);
                 transition: color 0.3s ease;
                 background-color: var(--textColorSecondary);
-                padding: 10px 20px;
+                padding: 5px 10px;
                 border-radius: 5px;
             }
             a:hover, button:hover {
