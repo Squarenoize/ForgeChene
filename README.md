@@ -1,4 +1,4 @@
-# ForgeChene
+# Forge & Chene
 
 Application web e-commerce (projet 13 OpenClassrooms) construite avec **Symfony 7.4** et **API Platform 5**. Elle propose un catalogue de produits, un panier, un espace client et une API sécurisée par JWT.
 
@@ -16,14 +16,14 @@ Application web e-commerce (projet 13 OpenClassrooms) construite avec **Symfony 
 - PHP >= 8.2, Symfony 7.4, Doctrine ORM 3 + Migrations
 - API Platform 5, LexikJWTAuthenticationBundle, NelmioCors
 - Twig, AssetMapper, Stimulus, Turbo
-- Base de données : MySQL 8 (config `.env`) ; PostgreSQL disponible via `compose.yaml`
+- Base de données : MySQL 8 disponible via `compose.yaml`
 - Tests : PHPUnit 11, Foundry
 
 ## Prérequis
 
 - PHP >= 8.2 (extensions `ctype`, `iconv`, plus le driver PDO de votre base)
 - [Composer](https://getcomposer.org/)
-- MySQL 8 (ou PostgreSQL via Docker)
+- MySQL 8 (ou disponible via Docker avec `compose.yaml`)
 - OpenSSL (génération des clés JWT)
 - [Symfony CLI](https://symfony.com/download) (optionnel)
 
@@ -62,7 +62,7 @@ php bin/console doctrine:migrations:migrate
 php bin/console doctrine:fixtures:load   # données de démonstration
 ```
 
-Pour utiliser PostgreSQL avec Docker : `docker compose up -d database`, puis adaptez `DATABASE_URL`.
+Pour utiliser MySQL avec Docker : `docker compose up -d database`, puis vérifiez que `DATABASE_URL` est correctement configurée.
 
 ## Lancement
 
@@ -87,7 +87,7 @@ curl http://localhost:8000/api/products -H "Authorization: Bearer <TOKEN>"
 ## Tests
 
 ```bash
-php bin/phpunit
+php bin/phpunit (tests à implémenter)
 ```
 
 ## Structure du projet

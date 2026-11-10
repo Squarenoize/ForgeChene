@@ -1,4 +1,4 @@
-# Fonctionnalités de ForgeChene
+# Fonctionnalités de Forge & Chene
 
 Ce document décrit les fonctionnalités de l'application, telles qu'implémentées dans le code (`src/Controller`, `src/Entity`, `config/packages/security.yaml`).
 
@@ -64,8 +64,8 @@ Statuts possibles (`OrderStatusEnum`) : `pending`, `processing`, `shipped`, `del
 
 Documentation interactive (OpenAPI) disponible sur `/api`.
 
-1. **Obtenir un jeton** : `POST /api/login` avec l'en-tête `X-API-KEY: <clé API>`. Réponse `200` `{"token": "<JWT>"}` ou `401` si la clé est invalide.
-2. **Lister les produits** : `GET /api/products` avec l'en-tête `Authorization: Bearer <JWT>` (accès réservé aux utilisateurs authentifiés).
+1. **Obtenir un jeton** : `POST /api/login` avec l'en-tête `X-API-KEY: <clé API>`. Réponse `200` `{"token": "<JWT>"}`. Si l'en-tête est absent ou si la clé est invalide (par exemple après suppression de la clé), réponse `401` `{"message": "Invalid credentials."}`. Le JWT expire après 900 secondes (`token_ttl` dans `config/packages/lexik_jwt_authentication.yaml`).
+2. **Lister les produits** : `GET /api/products` avec l'en-tête `Authorization: Bearer <JWT>`. La fiche d'un produit est disponible sur `GET /api/products/{id}`, avec le même en-tête. Sans jeton valide, la réponse est `401` `{"code": 401, "message": "JWT Token not found"}`.
 3. Les produits renvoyés incluent une URL absolue de la photo (`photoUrl`), calculée par `ProductProvider`.
 
 ```bash
@@ -76,9 +76,9 @@ curl http://localhost:8000/api/products -H "Authorization: Bearer $TOKEN"
 ## 7. Sécurité
 
 - Pare-feu `main` (sessions, formulaire de login) et pare-feu `api` sans état (JWT).
-- Accès : `/home`, `/product/*` publics ; `/account` et `/api/products` réservés aux utilisateurs authentifiés.
+- Accès : `/home`, `/product/*` publics ; `/account`,  `/cart`et `/api/products` (liste et fiche) réservés aux utilisateurs authentifiés.
 - Mots de passe hachés, clés API hachées, protection CSRF sur les formulaires et actions sensibles.
 
 ## 8. Données de démonstration
 
-`DataFixtures/AppFixtures.php` et `Story/AppStory.php` (Foundry) alimentent la base : `php bin/console doctrine:fixtures:load`.
+`DataFixtures/AppFixtures.php` alimente la base : `php bin/console doctrine:fixtures:load`.

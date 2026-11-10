@@ -45,8 +45,14 @@ final class CartController extends AbstractController
     #[Route('/cart/add/{id}', name: 'app_cart_add', methods: ['POST'])]
     public function add(Product $product, Request $request): RedirectResponse
     {
-        // Get the quantity from the request, defaulting to 1 and ensuring it's at least 1
-        $quantity = max(1, (int) $request->request->get('quantity', 1));
+        //Validate the quantity from the request
+        $rawQuantity = $request->request->get('quantity', 1);
+
+        if (!is_numeric($rawQuantity) || (int) $rawQuantity < 1) {
+            throw $this->createNotFoundException('Invalid quantity.');
+        }
+
+        $quantity = (int) $rawQuantity;
 
         //Get the active cart of the current user
         $cart = $this->cartRepository->findActiveCartByUserId($this->getUser()->getId());
@@ -58,6 +64,7 @@ final class CartController extends AbstractController
             $this->entityManager->persist($cart);
         }
 
+        // Check if the product is already in the cart
         $cartItem = null;
         foreach ($cart->getCartItems() as $item) {
             if ($item->getProduct() === $product) {
@@ -66,6 +73,16 @@ final class CartController extends AbstractController
             }
         }
 
+        // Calculate the new quantity
+        $currentQuantity = $cartItem ? $cartItem->getQuantity() : 0;
+        $newQuantity = $currentQuantity + $quantity;
+
+        //Quantity validation for the new quantity
+        if ($newQuantity > $product->getStockQuantity()) {
+            throw $this->createNotFoundException('Quantity exceeds available stock.');
+        }
+        
+        // Update the cart item with the new quantity or create a new one if it doesn't exist
         if ($cartItem) {
             $cartItem->setQuantity($cartItem->getQuantity() + $quantity);
         } else {
@@ -95,6 +112,10 @@ final class CartController extends AbstractController
         if ($quantity < 1) {
             $this->entityManager->remove($cartItem);
         } else {
+            // Validate that the new quantity doesn't exceed available stock
+            if ($quantity > $cartItem->getProduct()->getStockQuantity()) {
+                throw $this->createNotFoundException('Quantity exceeds available stock.');
+            }
             $cartItem->setQuantity($quantity);
         }
 
@@ -139,6 +160,15 @@ final class CartController extends AbstractController
 
         if (!$cart || $cart->getCartItems()->isEmpty()) {
             return $this->redirectToRoute('app_cart');
+        }
+
+        // Validate that stock is still available for all cart items
+        foreach ($cart->getCartItems() as $item) {
+            if ($item->getQuantity() > $item->getProduct()->getStockQuantity()) {
+                throw $this->createNotFoundException(
+                    'Quantity exceeds stock for: ' . $item->getProduct()->getName()
+                );
+            }
         }
 
         $now = new \DateTimeImmutable();

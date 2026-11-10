@@ -50,6 +50,7 @@ security:
         - { path: ^/api, roles: PUBLIC_ACCESS }
         - { path: ^/home, roles: PUBLIC_ACCESS }
         - { path: ^/products, roles: PUBLIC_ACCESS }
+        - { path: ^/cart, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/account, roles: IS_AUTHENTICATED_FULLY }
 
 when@test:
